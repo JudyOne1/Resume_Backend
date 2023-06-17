@@ -72,6 +72,27 @@
             <scope>runtime</scope>
         </dependency>
 
+<!--        华为对象云存储-->
+<!--        <dependency>-->
+<!--            <groupId>com.huaweicloud.sdk</groupId>-->
+<!--            <artifactId>huaweicloud-sdk-obs</artifactId>-->
+<!--            <version>3.1.43</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.huaweicloud</groupId>
+            <artifactId>esdk-obs-java-bundle</artifactId>
+            <version>[3.21.11,)</version>
+        </dependency>
+        <dependency>
+            <groupId>com.huaweicloud.sdk</groupId>
+            <artifactId>huaweicloud-sdk-ecs</artifactId>
+            <version>3.1.43</version>
+        </dependency>
+        <dependency>
+            <groupId>com.huaweicloud.sdk</groupId>
+            <artifactId>huaweicloud-sdk-vpc</artifactId>
+            <version>3.1.43</version>
+        </dependency>
     </dependencies>
 
     <build>
