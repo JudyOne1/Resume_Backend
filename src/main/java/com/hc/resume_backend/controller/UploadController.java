@@ -3,6 +3,8 @@ package com.hc.resume_backend.controller;
 import com.hc.resume_backend.common.BaseResponse;
 import com.hc.resume_backend.common.ErrorCode;
 import com.hc.resume_backend.common.ResultUtils;
+import com.hc.resume_backend.model.dto.file.FileDownloadRequest;
+import com.hc.resume_backend.model.dto.file.FileUploadRequest;
 import com.hc.resume_backend.service.ObsService;
 import com.hc.resume_backend.utils.Base64ToMultipartFile;
 import io.swagger.annotations.Api;
@@ -39,8 +41,13 @@ public class UploadController {
     @PostMapping("/uploadFile")
     @ResponseBody
     @ApiParam(name = "base64File", value = "base64格式的文件", required = true)
-    public BaseResponse uploadFile(String base64File) throws IOException {
+    public BaseResponse uploadFile(@RequestBody FileUploadRequest File) throws IOException {
         //base64File格式类似于： data:image/gif;base64,R0lGODlhHA
+        //data:application/pdf;base64,
+        //data:text/plain;base64,
+
+        String base64File = File.getBase64File();
+
         final String[] base64Array = base64File.split(",");
         // base64转为流
         String dataUir = base64Array[0];
@@ -48,6 +55,11 @@ public class UploadController {
         Base64ToMultipartFile multipartFile = new Base64ToMultipartFile(data, dataUir);
         //获取格式类型
         String extension = multipartFile.getExtension();
+
+        if (extension.equals("plain")){
+            //如果是文本
+            extension="txt";
+        }
         if (ObjectUtils.isEmpty(multipartFile) || multipartFile.getSize() <= 0) {
             System.out.println("文件为空");
             return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"文件为空");
@@ -59,13 +71,13 @@ public class UploadController {
     }
 
 
-//    @ApiOperation(value = "下载文件")
-//    @PostMapping("/downloadFile")
-//    @ResponseBody
-//    public BaseResponse downloadFile(String Key) throws IOException {
-//        obsService.getData(Key);
-//        return ResultUtils.success("success");
-//    }
+    @ApiOperation(value = "下载文件")
+    @PostMapping("/downloadFile")
+    @ResponseBody
+    public BaseResponse downloadFile(@RequestBody FileDownloadRequest fileDownloadRequest) throws IOException {
+        String url = obsService.getData(fileDownloadRequest.getPid());
+        return ResultUtils.success(url);
+    }
 
 
 }

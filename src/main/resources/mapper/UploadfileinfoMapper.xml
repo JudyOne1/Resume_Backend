@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hc.resume_backend.mapper.UploadfileinfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.hc.resume_backend.model.entity.Uploadfileinfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pid" column="pid" jdbcType="BIGINT"/>
+            <result property="resumekey" column="resumeKey" jdbcType="VARCHAR"/>
+            <result property="obsurl" column="OBSurl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pid,resumeKey,
+        OBSurl
+    </sql>
+</mapper>

@@ -10,7 +10,6 @@ import java.io.InputStream;
  * @author Judy
  * @create 2023-06-15-19:19
  */
-@Service
 public interface ObsService {
 
     /**
@@ -23,9 +22,9 @@ public interface ObsService {
 
     /**
      * 获取obs对象云存储中的数据
-     * @param Key 文件名
+     * @param pid 文件id
      * @return 获得文件字节数据
      * @throws IOException
      */
-    public byte[] getData(String Key) throws IOException;
+    public String getData(Long pid) throws IOException;
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hc.resume_backend.mapper.DetailinfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.hc.resume_backend.model.entity.Detailinfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pid" column="pid" jdbcType="BIGINT"/>
+            <result property="gender" column="gender" jdbcType="VARCHAR"/>
+            <result property="height" column="height" jdbcType="DOUBLE"/>
+            <result property="weight" column="weight" jdbcType="DOUBLE"/>
+            <result property="birthday" column="birthday" jdbcType="DATE"/>
+            <result property="resident" column="resident" jdbcType="VARCHAR"/>
+            <result property="birthplane" column="birthPlane" jdbcType="VARCHAR"/>
+            <result property="mail" column="mail" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="expectedposition" column="expectedPosition" jdbcType="VARCHAR"/>
+            <result property="hobby" column="hobby" jdbcType="VARCHAR"/>
+            <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isdelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pid,gender,
+        height,weight,birthday,
+        resident,birthPlane,mail,
+        phone,expectedPosition,hobby,
+        introduce,createTime,updateTime,
+        isDelete
+    </sql>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.EduinfoMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.Eduinfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pid" column="pid" jdbcType="BIGINT"/>
+            <result property="edubegin" column="eduBegin" jdbcType="DATE"/>
+            <result property="eduend" column="eduEnd" jdbcType="DATE"/>
+            <result property="collage" column="collage" jdbcType="VARCHAR"/>
+            <result property="major" column="major" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isdelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pid,eduBegin,
+        eduEnd,collage,major,
+        createTime,updateTime,isDelete
+    </sql>
+</mapper>
