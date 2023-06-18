@@ -2,6 +2,7 @@ package com.hc.resume_backend.mapper;
 
 import com.hc.resume_backend.model.entity.Eduinfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author Judy
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-06-17 21:54:25
 * @Entity com.hc.resume_backend.model.entity.Eduinfo
 */
+
 public interface EduinfoMapper extends BaseMapper<Eduinfo> {
 
 }
