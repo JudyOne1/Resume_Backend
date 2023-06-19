@@ -1,10 +1,16 @@
 package com.hc.resume_backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hc.resume_backend.model.entity.Baseinfo;
 import com.hc.resume_backend.model.entity.Detailinfo;
 import com.hc.resume_backend.service.DetailinfoService;
 import com.hc.resume_backend.mapper.DetailinfoMapper;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
 * @author Judy
@@ -15,6 +21,35 @@ import org.springframework.stereotype.Service;
 public class DetailinfoServiceImpl extends ServiceImpl<DetailinfoMapper, Detailinfo>
     implements DetailinfoService{
 
+    @Resource
+    private DetailinfoMapper detailinfoMapper;
+
+    @Override
+    public HashMap<String, ArrayList<String>> getSELFDetailInfo() {
+        List<Detailinfo> detailinfos = detailinfoMapper.selectList(null);
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        ArrayList<String> helper = new ArrayList<>();
+        detailinfos.stream().forEach((item)->helper.add(item.getGender().toString()));
+        map.put("gender",helper);
+
+        ArrayList<String> helper1 = new ArrayList<>();
+        detailinfos.stream().forEach((item)->helper1.add(item.getHeight().toString()));
+        map.put("height",helper1);
+
+        ArrayList<String> helper2 = new ArrayList<>();
+        detailinfos.stream().forEach((item)->helper2.add(item.getBirthday().toString()));
+        map.put("Birthday",helper2);
+
+        ArrayList<String> helper3 = new ArrayList<>();
+        detailinfos.stream().forEach((item)->helper3.add(item.getBirthplane().toString()));
+        map.put("Birthplane",helper3);
+
+        ArrayList<String> helper4 = new ArrayList<>();
+        //有没有空指针问题？
+        detailinfos.stream().forEach((item)->helper4.add(item.getResident().toString()));
+        map.put("Resident",helper4);
+        return map;
+    }
 }
 
 

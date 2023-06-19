@@ -1,6 +1,11 @@
 package com.hc.resume_backend;
 
 import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hc.resume_backend.mapper.BaseinfoMapper;
+import com.hc.resume_backend.model.entity.Baseinfo;
+import com.hc.resume_backend.service.BaseinfoService;
+import com.hc.resume_backend.service.DetailinfoService;
 import com.huaweicloud.sdk.core.auth.BasicCredentials;
 import com.huaweicloud.sdk.core.auth.ICredential;
 import com.huaweicloud.sdk.core.exception.ConnectionException;
@@ -14,17 +19,75 @@ import com.obs.services.ObsClient;
 import com.obs.services.model.ObsObject;
 import org.apache.poi.util.IOUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @SpringBootTest
 class ResumeBackendApplicationTests {
 
+    @Autowired
+    private BaseinfoService baseinfoService;
+
+    @Autowired
+    private DetailinfoService detailinfoService;
+
+    @Resource
+    private BaseinfoMapper baseinfoMapper;
+
+
     @Test
     void contextLoads() {
+//        QueryWrapper<Baseinfo> queryWrapper = new QueryWrapper<>();
+//        QueryWrapper<Baseinfo> age = queryWrapper.select("age");
+//
+//        baseinfoService.list(queryWrapper);
+//
+//        queryWrapper = queryWrapper.select("level");
+//        List<Baseinfo> list = baseinfoService.list(queryWrapper);
+//        HashMap<String, ArrayList<String>> finalMap = new HashMap<>();
+//        ArrayList<String> helper = new ArrayList<>();
+//        list.stream().forEach((item)->helper.add(item.getLevel()));
+//        System.out.println(helper);
+
+
+//        ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoMapper.selectList(null);
+//
+//        HashMap<String, ArrayList<String>> map = new HashMap<>();
+//        ArrayList<String> helper = new ArrayList<>();
+//        baseinfos.stream().forEach((item)->helper.add(item.getAge().toString()));
+//        map.put("age",helper);
+//        helper.clear();
+//        baseinfos.stream().forEach((item)->helper.add(item.getLevel()));
+//        map.put("level",helper);
+//        helper.clear();
+//        baseinfos.stream().forEach((item)->helper.add(item.getWorkyears()));
+//        map.put("workYears",helper);
+//        System.out.println(map.toString());
+
+        ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoMapper.selectList(null);
+
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        ArrayList<String> helper = new ArrayList<>();
+        baseinfos.forEach((item)->helper.add(item.getAge().toString()));
+        baseinfos.stream().forEach((item)->helper.add(item.getAge().toString()));
+        map.put("age",helper);
+
+        ArrayList<String> helper1 = new ArrayList<>();
+        baseinfos.stream().forEach((item)->helper1.add(item.getLevel()));
+        map.put("level",helper1);
+
+        ArrayList<String> helper2 = new ArrayList<>();
+        baseinfos.stream().forEach((item)->helper2.add(item.getWorkyears()));
+        map.put("workYears",helper2);
+        System.out.println(map.toString());
     }
 
     @Test
