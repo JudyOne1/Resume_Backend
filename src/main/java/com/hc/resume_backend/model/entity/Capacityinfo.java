@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 /**
@@ -23,6 +25,7 @@ public class Capacityinfo implements Serializable {
     /**
      * 证书或技能
      */
+    @ApiParam("证书或技能")
     private String skill;
 
     /**

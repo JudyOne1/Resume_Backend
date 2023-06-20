@@ -63,11 +63,11 @@ public class resumeController {
         return ResultUtils.success(finalMap);
     }
 
-    @ApiOperation(value = "获取简历基本信息")
+    @ApiOperation(value = "获取所有简历基本信息")
     @GetMapping("/getAllBaseInfo")
     public BaseResponse<ArrayList<Baseinfo>> getAllBaseInfo(){
-
-        return ResultUtils.success(new ArrayList<>());
+        ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoService.list(null);
+        return ResultUtils.success(baseinfos);
     }
 
     @ApiOperation(value = "获取指定id的简历详细信息")

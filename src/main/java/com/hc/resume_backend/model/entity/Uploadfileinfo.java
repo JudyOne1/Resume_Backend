@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 /**
@@ -28,11 +30,13 @@ public class Uploadfileinfo implements Serializable {
     /**
      * 系统自动生成UUID+后缀作为key
      */
+    @ApiParam("系统自动生成UUID+后缀作为key")
     private String resumekey;
 
     /**
      * 华为云储存地址
      */
+    @ApiParam("华为云储存地址")
     private String obsurl;
 
     @TableField(exist = false)

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 /**
@@ -23,31 +25,37 @@ public class Workinfo implements Serializable {
     /**
      * 工作开始时间
      */
+    @ApiParam("工作开始时间")
     private Date workbegin;
 
     /**
      * 工作结束时间
      */
+    @ApiParam("工作结束时间")
     private Date workend;
 
     /**
      * 此工作时间
      */
+    @ApiParam("此工作时间")
     private String worktime;
 
     /**
      * 公司名称
      */
+    @ApiParam("公司名称")
     private String companyinfo;
 
     /**
      * 职位信息
      */
+    @ApiParam("职位信息")
     private String position;
 
     /**
      * 工作描述
      */
+    @ApiParam("工作描述")
     private String workdesc;
 
     /**

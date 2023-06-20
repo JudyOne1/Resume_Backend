@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 /**
@@ -23,21 +25,25 @@ public class Jobinfo implements Serializable {
     /**
      * 职位id
      */
+    @ApiParam("职位id")
     private Long jobid;
 
     /**
      * 职位名称
      */
+    @ApiParam("职位名称")
     private String jobname;
 
     /**
      * 岗位职责
      */
+    @ApiParam("岗位职责")
     private String responsibility;
 
     /**
      * 岗位要求
      */
+    @ApiParam("岗位要求")
     private String requirement;
 
     /**

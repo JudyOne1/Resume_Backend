@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 /**
@@ -25,51 +27,61 @@ public class Baseinfo implements Serializable {
     /**
      * 简历id
      */
+    @ApiParam("简历id")
     private Long pid;
 
     /**
      * 姓名
      */
+    @ApiParam("姓名")
     private String name;
 
     /**
      * 年龄
      */
+    @ApiParam("年龄")
     private Integer age;
 
     /**
      * 最高学历
      */
+    @ApiParam("最高学历")
     private String level;
 
     /**
      * 毕业院校
      */
+    @ApiParam("毕业院校")
     private String collage;
 
     /**
      * 工作年限
      */
+    @ApiParam("工作年限")
     private String workyears;
 
     /**
      * 标签集合
      */
+    @ApiParam("标签集合")
     private String alltag;
 
     /**
      * 创建时间
      */
+    @ApiParam("创建时间")
     private Date createtime;
 
     /**
      * 更新时间
      */
+    @ApiParam("更新时间")
     private Date updatetime;
 
     /**
      * 是否删除
      */
+    @ApiParam("是否删除")
     private Integer isdelete;
 
     @TableField(exist = false)

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 /**
@@ -18,16 +20,19 @@ public class Taginfo implements Serializable {
      * id
      */
     @TableId
+    @ApiParam("标签id")
     private Long id;
 
     /**
      * 标签名称
      */
+    @ApiParam("标签名称")
     private String tag;
 
     /**
      * 标签描述
      */
+    @ApiParam("标签描述")
     private String desc;
 
     /**
