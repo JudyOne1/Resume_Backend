@@ -6,6 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.hc.resume_backend.model.entity.Workinfo">
             <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="pid" column="pid" jdbcType="BIGINT"/>
             <result property="workbegin" column="workBegin" jdbcType="DATE"/>
             <result property="workend" column="workEnd" jdbcType="DATE"/>
             <result property="worktime" column="workTime" jdbcType="VARCHAR"/>
@@ -18,7 +19,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,workBegin,workEnd,
+        id,pid,workBegin,workEnd,
         workTime,companyInfo,position,
         workDesc,createTime,updateTime,
         isDelete

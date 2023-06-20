@@ -33,6 +33,7 @@ public class Taginfo implements Serializable {
      * 标签描述
      */
     @ApiParam("标签描述")
+    @TableField("'desc'")
     private String desc;
 
     /**

@@ -4,8 +4,10 @@ import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.mapper.BaseinfoMapper;
 import com.hc.resume_backend.model.entity.Baseinfo;
+import com.hc.resume_backend.model.entity.Taginfo;
 import com.hc.resume_backend.service.BaseinfoService;
 import com.hc.resume_backend.service.DetailinfoService;
+import com.hc.resume_backend.service.TaginfoService;
 import com.huaweicloud.sdk.core.auth.BasicCredentials;
 import com.huaweicloud.sdk.core.auth.ICredential;
 import com.huaweicloud.sdk.core.exception.ConnectionException;
@@ -42,6 +44,9 @@ class ResumeBackendApplicationTests {
     @Resource
     private BaseinfoMapper baseinfoMapper;
 
+    @Autowired
+    private TaginfoService taginfoService;
+
 
     @Test
     void contextLoads() {
@@ -72,22 +77,29 @@ class ResumeBackendApplicationTests {
 //        map.put("workYears",helper);
 //        System.out.println(map.toString());
 
-        ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoMapper.selectList(null);
+//        ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoMapper.selectList(null);
+//
+//        HashMap<String, ArrayList<String>> map = new HashMap<>();
+//        ArrayList<String> helper = new ArrayList<>();
+//        baseinfos.forEach((item)->helper.add(item.getAge().toString()));
+//        baseinfos.stream().forEach((item)->helper.add(item.getAge().toString()));
+//        map.put("age",helper);
+//
+//        ArrayList<String> helper1 = new ArrayList<>();
+//        baseinfos.stream().forEach((item)->helper1.add(item.getLevel()));
+//        map.put("level",helper1);
+//
+//        ArrayList<String> helper2 = new ArrayList<>();
+//        baseinfos.stream().forEach((item)->helper2.add(item.getWorkyears()));
+//        map.put("workYears",helper2);
+//        System.out.println(map.toString());
 
-        HashMap<String, ArrayList<String>> map = new HashMap<>();
-        ArrayList<String> helper = new ArrayList<>();
-        baseinfos.forEach((item)->helper.add(item.getAge().toString()));
-        baseinfos.stream().forEach((item)->helper.add(item.getAge().toString()));
-        map.put("age",helper);
-
-        ArrayList<String> helper1 = new ArrayList<>();
-        baseinfos.stream().forEach((item)->helper1.add(item.getLevel()));
-        map.put("level",helper1);
-
-        ArrayList<String> helper2 = new ArrayList<>();
-        baseinfos.stream().forEach((item)->helper2.add(item.getWorkyears()));
-        map.put("workYears",helper2);
-        System.out.println(map.toString());
+        System.out.println("-------------------------------------");
+        QueryWrapper<Taginfo> taginfoQueryWrapper = new QueryWrapper<>();
+        //SELECT * FROM `taginfo` WHERE id = 1 or id = 2
+        taginfoQueryWrapper.eq("id",1).or().eq("id",2);
+        List<Taginfo> list = taginfoService.list(taginfoQueryWrapper);
+        System.out.println(list);
     }
 
     @Test

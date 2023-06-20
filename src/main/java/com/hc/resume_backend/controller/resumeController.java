@@ -1,15 +1,14 @@
 package com.hc.resume_backend.controller;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.common.BaseResponse;
 
 import com.hc.resume_backend.common.ResultUtils;
-import com.hc.resume_backend.model.entity.AllInfo;
-import com.hc.resume_backend.model.entity.Baseinfo;
-import com.hc.resume_backend.model.entity.Detailinfo;
-import com.hc.resume_backend.service.BaseinfoService;
-import com.hc.resume_backend.service.DetailinfoService;
+import com.hc.resume_backend.model.entity.*;
+import com.hc.resume_backend.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,19 @@ public class resumeController {
 
     @Autowired
     private DetailinfoService detailinfoService;
+
+    @Autowired
+    private EduinfoService eduinfoService;
+
+    @Autowired
+    private WorkinfoService workinfoService;
+
+    @Autowired
+    private TaginfoService taginfoService;
+
+    @Autowired
+    private CapacityinfoService capacityinfoService;
+
 
     @ApiOperation(value = "获取简历统计信息")
     @GetMapping("/getStatisticsInfo")
@@ -70,10 +82,53 @@ public class resumeController {
         return ResultUtils.success(baseinfos);
     }
 
-    @ApiOperation(value = "获取指定id的简历详细信息")
-    @GetMapping("/getDetailInfo")
-    public BaseResponse<ArrayList<AllInfo>> getDetailInfo(Long pid){
+    @ApiOperation(value = "根据指定pid的获取简历的所有信息")
+    @GetMapping("/getDetailInfoByPid")
+    public BaseResponse<AllInfo> getDetailInfo(Long pid){
+        QueryWrapper<Baseinfo> baseinfoQueryWrapper = new QueryWrapper<Baseinfo>();
+        baseinfoQueryWrapper.eq("pid",pid);
+        Baseinfo baseinfo = baseinfoService.getOne(baseinfoQueryWrapper);
 
-        return ResultUtils.success(new ArrayList<>());
+        LambdaQueryWrapper<Detailinfo> detailinfoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        detailinfoLambdaQueryWrapper.eq(Detailinfo::getPid,pid);
+        Detailinfo detailinfo = detailinfoService.getOne(detailinfoLambdaQueryWrapper);
+
+        //通过baseinfo的tag获取标签信息
+        //通过detailinfo的skill获取技能信息
+        //其余可以通过pid获取，工作简历and教育经历可能不止一个，需要注意
+        String allTag = baseinfo.getAlltag();
+        String[] tags = allTag.split("/");
+        QueryWrapper<Taginfo> taginfoQueryWrapper = new QueryWrapper<>();
+        for (int i = 0; i < tags.length; i++) {
+            taginfoQueryWrapper.eq("id",tags[i]);
+            if (i<(tags.length-1)){
+                taginfoQueryWrapper.or();
+            }
+        }
+        List<Taginfo> taginfoList = taginfoService.list(taginfoQueryWrapper);
+
+        QueryWrapper<Capacityinfo> capacityinfoQueryWrapper = new QueryWrapper<>();
+        String allSkill = detailinfo.getSkill();
+        String[] skills = allSkill.split("/");
+        for (int i = 0; i < skills.length; i++) {
+            capacityinfoQueryWrapper.eq("id",skills[i]);
+            if (i<(skills.length-1)){
+                capacityinfoQueryWrapper.or();
+            }
+        }
+        List<Capacityinfo> capacityinfoList = capacityinfoService.list(capacityinfoQueryWrapper);
+
+        LambdaQueryWrapper<Eduinfo> eduinfoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        eduinfoLambdaQueryWrapper.eq(Eduinfo::getPid,pid);
+        List<Eduinfo> eduinfoList = eduinfoService.list(eduinfoLambdaQueryWrapper);
+
+        LambdaQueryWrapper<Workinfo> workinfoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        workinfoLambdaQueryWrapper.eq(Workinfo::getPid,pid);
+        List<Workinfo> workinfoList = workinfoService.list(workinfoLambdaQueryWrapper);
+
+
+        AllInfo allInfo = new AllInfo(baseinfo,detailinfo,eduinfoList,workinfoList,taginfoList,capacityinfoList);
+
+        return ResultUtils.success(allInfo);
     }
 }

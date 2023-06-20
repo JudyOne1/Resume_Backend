@@ -23,6 +23,12 @@ public class Workinfo implements Serializable {
     private Long id;
 
     /**
+     * 对应简历个人id
+     */
+    @ApiParam("简历id")
+    private Long pid;
+
+    /**
      * 工作开始时间
      */
     @ApiParam("工作开始时间")
@@ -50,6 +56,7 @@ public class Workinfo implements Serializable {
      * 职位信息
      */
     @ApiParam("职位信息")
+    @TableField("'position'")
     private String position;
 
     /**
