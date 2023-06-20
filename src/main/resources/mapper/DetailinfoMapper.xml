@@ -16,6 +16,7 @@
             <result property="mail" column="mail" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="expectedposition" column="expectedPosition" jdbcType="VARCHAR"/>
+            <result property="skill" column="skill" jdbcType="VARCHAR"/>
             <result property="hobby" column="hobby" jdbcType="VARCHAR"/>
             <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
             <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
@@ -27,7 +28,7 @@
         id,pid,gender,
         height,weight,birthday,
         resident,birthPlane,mail,
-        phone,expectedPosition,hobby,
+        phone,expectedPosition,skill,hobby,
         introduce,createTime,updateTime,
         isDelete
     </sql>
