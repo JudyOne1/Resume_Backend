@@ -9,10 +9,11 @@
             <result property="pid" column="pid" jdbcType="BIGINT"/>
             <result property="resumekey" column="resumeKey" jdbcType="VARCHAR"/>
             <result property="obsurl" column="OBSurl" jdbcType="VARCHAR"/>
+            <result property="handle" column="handle" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,pid,resumeKey,
-        OBSurl
+        OBSurl,handle
     </sql>
 </mapper>

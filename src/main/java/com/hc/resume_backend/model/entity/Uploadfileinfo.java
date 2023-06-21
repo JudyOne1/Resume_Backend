@@ -1,9 +1,7 @@
 package com.hc.resume_backend.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiParam;
@@ -38,6 +36,12 @@ public class Uploadfileinfo implements Serializable {
      */
     @ApiParam("华为云储存地址")
     private String obsurl;
+
+    /**
+     * 是否处理，默认0，已处理1
+     */
+    @TableLogic
+    private Integer handle;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -18,7 +18,7 @@ public interface ObsService {
      * @param bytes 文件字节数据
      * @throws FileNotFoundException
      */
-    public void saveData(String Key,byte[] bytes) throws FileNotFoundException;
+    public void saveData(String Key,byte[] bytes) throws IOException;
 
     /**
      * 获取obs对象云存储中的数据

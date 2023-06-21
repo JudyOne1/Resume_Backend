@@ -14,13 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.function.ServerResponse;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.UUID;
 
 /**
@@ -66,7 +61,8 @@ public class UploadController {
         }
         //上传到obs对象云存储中
         UUID uuid = UUID.randomUUID();
-        obsService.saveData(uuid.toString()+"."+extension,multipartFile.getBytes());
+        obsService.saveData(uuid+"."+extension,multipartFile.getBytes());
+
         return ResultUtils.success("success");
     }
 

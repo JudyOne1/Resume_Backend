@@ -1,11 +1,18 @@
 package com.hc.resume_backend.service.impl;
 
 
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.mapper.UploadfileinfoMapper;
+import com.hc.resume_backend.model.dto.file.Message;
 import com.hc.resume_backend.model.entity.Uploadfileinfo;
+import com.hc.resume_backend.server.TransmissionServer;
 import com.hc.resume_backend.service.ObsService;
+import com.hc.resume_backend.utils.UuidUtils;
 import com.obs.services.ObsClient;
 import com.obs.services.model.ObsObject;
 import com.obs.services.model.PutObjectRequest;
@@ -18,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * @author Judy
@@ -38,8 +46,11 @@ public class ObsServiceImpl implements ObsService {
     @Resource
     private UploadfileinfoMapper uploadfileinfoMapper;
 
+    @Resource
+    private TransmissionServer transmissionServer;
+
     @Override
-    public void saveData(String Key,byte[] bytes) throws FileNotFoundException {
+    public void saveData(String Key,byte[] bytes) throws IOException {
         // 创建ObsClient实例
         ObsClient obsClient = new ObsClient(ak, sk, endPoint);
         // localfile为待上传的本地文件路径，需要指定到具体的文件名
@@ -47,20 +58,28 @@ public class ObsServiceImpl implements ObsService {
         String objectKey = result.getObjectKey();
         String objectUrl = result.getObjectUrl();
         Uploadfileinfo uploadfileinfo = new Uploadfileinfo();
+        Long pid = UuidUtils.getId();
+        uploadfileinfo.setPid(pid);
         uploadfileinfo.setObsurl(objectUrl);
         uploadfileinfo.setResumekey(objectKey);
+        uploadfileinfo.setHandle(0);
         uploadfileinfoMapper.insert(uploadfileinfo);
-        //TODO: 通知深度学习接收数据
 
+        //如果已经连接，那么直接发送message
+        if (TransmissionServer.FLAG){
+            Message message = new Message(pid, objectUrl);
+            String str = JSONUtil.toJsonStr(message);
+            transmissionServer.sendMessage(str);
+        }
     }
 
     @Override
-    public String getData(Long Key) throws IOException {
+    public String getData(Long pid) throws IOException {
         //查key
         LambdaQueryWrapper<Uploadfileinfo> queryWrapper = new LambdaQueryWrapper<>();
         QueryWrapper<Uploadfileinfo> wrapper = new QueryWrapper<>();
-        wrapper.eq("pid",Key);
-        queryWrapper.eq(Uploadfileinfo::getPid,Key);
+        wrapper.eq("pid",pid);
+        queryWrapper.eq(Uploadfileinfo::getPid,pid);
         Uploadfileinfo uploadfileinfo = uploadfileinfoMapper.selectOne(wrapper);
         String obsurl = uploadfileinfo.getObsurl();
         return obsurl;

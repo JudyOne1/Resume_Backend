@@ -34,6 +34,14 @@ public class JobinfoController {
         return ResultUtils.success(list);
     }
 
-    // todo 获取指定岗位下的简历信息
+    // todo 获取指定岗位下的简历基本信息
+
+
+
+    // todo 优化：使用redis缓存
+
+
+
+    // todo 与深度学习对接
 
 }

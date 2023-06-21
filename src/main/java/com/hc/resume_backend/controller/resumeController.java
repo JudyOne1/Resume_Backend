@@ -12,10 +12,7 @@ import com.hc.resume_backend.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -84,7 +81,7 @@ public class resumeController {
 
     @ApiOperation(value = "根据指定pid的获取简历的所有信息")
     @GetMapping("/getDetailInfoByPid")
-    public BaseResponse<AllInfo> getDetailInfo(Long pid){
+    public BaseResponse<AllInfo> getDetailInfo(@RequestBody Long pid){
         QueryWrapper<Baseinfo> baseinfoQueryWrapper = new QueryWrapper<Baseinfo>();
         baseinfoQueryWrapper.eq("pid",pid);
         Baseinfo baseinfo = baseinfoService.getOne(baseinfoQueryWrapper);

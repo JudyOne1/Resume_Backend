@@ -1,13 +1,16 @@
 package com.hc.resume_backend;
 
 import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.mapper.BaseinfoMapper;
 import com.hc.resume_backend.model.entity.Baseinfo;
 import com.hc.resume_backend.model.entity.Taginfo;
+import com.hc.resume_backend.model.entity.Uploadfileinfo;
 import com.hc.resume_backend.service.BaseinfoService;
 import com.hc.resume_backend.service.DetailinfoService;
 import com.hc.resume_backend.service.TaginfoService;
+import com.hc.resume_backend.service.UploadfileinfoService;
 import com.huaweicloud.sdk.core.auth.BasicCredentials;
 import com.huaweicloud.sdk.core.auth.ICredential;
 import com.huaweicloud.sdk.core.exception.ConnectionException;
@@ -19,18 +22,24 @@ import com.huaweicloud.sdk.vpc.v3.model.ListVpcsResponse;
 import com.huaweicloud.sdk.vpc.v3.region.VpcRegion;
 import com.obs.services.ObsClient;
 import com.obs.services.model.ObsObject;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.util.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 class ResumeBackendApplicationTests {
@@ -47,9 +56,11 @@ class ResumeBackendApplicationTests {
     @Autowired
     private TaginfoService taginfoService;
 
+    @Resource
+    private UploadfileinfoService uploadfileinfoService;
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws IOException {
 //        QueryWrapper<Baseinfo> queryWrapper = new QueryWrapper<>();
 //        QueryWrapper<Baseinfo> age = queryWrapper.select("age");
 //
@@ -94,12 +105,89 @@ class ResumeBackendApplicationTests {
 //        map.put("workYears",helper2);
 //        System.out.println(map.toString());
 
-        System.out.println("-------------------------------------");
-        QueryWrapper<Taginfo> taginfoQueryWrapper = new QueryWrapper<>();
-        //SELECT * FROM `taginfo` WHERE id = 1 or id = 2
-        taginfoQueryWrapper.eq("id",1).or().eq("id",2);
-        List<Taginfo> list = taginfoService.list(taginfoQueryWrapper);
-        System.out.println(list);
+//        System.out.println("-------------------------------------");
+//        QueryWrapper<Taginfo> taginfoQueryWrapper = new QueryWrapper<>();
+//        //SELECT * FROM `taginfo` WHERE id = 1 or id = 2
+//        taginfoQueryWrapper.eq("id",1).or().eq("id",2);
+//        List<Taginfo> list = taginfoService.list(taginfoQueryWrapper);
+//        System.out.println(list);
+
+
+
+//        String path = "D:\\textobsdownload\\";
+//        LambdaQueryWrapper<Uploadfileinfo> queryWrapper = new LambdaQueryWrapper<>();
+//        queryWrapper.eq(Uploadfileinfo::getHandle,0);
+//        List<Uploadfileinfo> list = uploadfileinfoService.list(queryWrapper);
+//        List<String> urlList = list.stream().map(Uploadfileinfo::getObsurl).collect(Collectors.toList());
+//        for (String url1 : urlList) {
+//            System.out.println(url1);
+//            try {
+//                URL url = new URL(url1);
+//                URLConnection connection = url.openConnection();
+//
+//                try (InputStream inputStream = connection.getInputStream();
+//                     FileOutputStream outputStream = new FileOutputStream(path+"111.jpeg")) {
+//                    byte[] buffer = new byte[4096];
+//                    int bytesRead;
+//
+//                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                        outputStream.write(buffer, 0, bytesRead);
+//                    }
+//
+//                    System.out.println("文件下载完成！");
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        String path = "D:\\textobsdownload\\222.jpeg";
+        URL url = new URL("https://zhuyifan.obs.cn-south-1.myhuaweicloud.com:443/f25ed0cc-bb3a-456d-95e9-69e4e1ed4083.jpeg");
+        File File = new File(path);
+        FileUtils.copyURLToFile(url, File);
+
+    }
+
+    public String uploadToLocal(MultipartFile file){
+        // 获取文件原本的名字
+        String originName = file.getOriginalFilename();
+        // 判断文件是否是pdf文件
+        Set<String> set = new HashSet<>();
+        set.add(".pdf");
+        set.add(".doc");
+        set.add(".docx");
+        // 取出文件的后缀
+        int count = 0;
+        for(int i = 0; i < originName.length(); i++){
+            if(originName.charAt(i) == '.'){
+                count = i;
+                break;
+            }
+        }
+        String endName = originName.substring(count); //取出文件类型
+        String fileType = originName.substring(count + 1); //文件类型
+        if(!set.contains(endName)){
+            return new String("上传的文件类型错误,只能上传pdf,doc,docx类型的文件");
+        }
+        // 创建保存路径
+        //日期格式
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String format = sdf.format(new Date());
+        String savePath = System.getProperty("user.dir") + "\\" + "files" +   "\\" + fileType + "\\" + format;
+        // 保存文件的文件夹
+        File folder = new File(savePath);
+        // 判断路径是否存在,不存在则自动创建
+        if(!folder.exists()){
+            folder.mkdirs();
+        }
+        String saveName = originName;
+        try {
+            file.transferTo(new File(folder,saveName));
+            String filePath = savePath + "\\" + saveName;
+            return new String("文件路径为:" + filePath);
+        } catch (IOException e){
+            return new String(e.getMessage());
+        }
     }
 
     @Test
