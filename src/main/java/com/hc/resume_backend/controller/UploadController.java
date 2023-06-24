@@ -7,6 +7,7 @@ import com.hc.resume_backend.model.dto.file.FileDownloadRequest;
 import com.hc.resume_backend.model.dto.file.FileUploadRequest;
 import com.hc.resume_backend.service.ObsService;
 import com.hc.resume_backend.utils.Base64ToMultipartFile;
+import com.hc.resume_backend.utils.UuidUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -60,7 +61,8 @@ public class UploadController {
             return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"文件为空");
         }
         //上传到obs对象云存储中
-        UUID uuid = UUID.randomUUID();
+        Long uuid = UuidUtils.getId();
+//        UUID uuid = UUID.randomUUID();
         obsService.saveData(uuid+"."+extension,multipartFile.getBytes());
 
         return ResultUtils.success("success");

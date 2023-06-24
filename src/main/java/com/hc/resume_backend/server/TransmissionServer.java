@@ -1,27 +1,24 @@
 package com.hc.resume_backend.server;
 
-import cn.hutool.json.JSON;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.hc.resume_backend.config.GetHttpSessionConfig;
-import com.hc.resume_backend.model.dto.file.Message;
+//import com.hc.resume_backend.config.GetHttpSessionConfig;
+import com.hc.resume_backend.model.dto.file.FileMessage;
 import com.hc.resume_backend.model.entity.Uploadfileinfo;
 import com.hc.resume_backend.service.UploadfileinfoService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.sockjs.transport.session.WebSocketServerSockJsSession;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * 前端通知后端->往深度学习python传输数据
@@ -29,10 +26,11 @@ import java.util.stream.Collectors;
  * @create 2023-06-20-19:17
  */
 
-@ServerEndpoint(value = "/transmission",configurator = GetHttpSessionConfig.class)
+//@ServerEndpoint(value = "/transmission",configurator = GetHttpSessionConfig.class)
+@ServerEndpoint(value = "/transmission")
 @Slf4j
 @Component
-public class TransmissionServer {
+public class TransmissionServer  {
 
     public static boolean FLAG = false;
 
@@ -52,27 +50,35 @@ public class TransmissionServer {
      * @param session
      */
     @OnOpen
-    public void onOpen(Session session,EndpointConfig config) throws IOException, EncodeException {
+    public void onOpen(Session session) throws IOException {
         //将session进行保存
+        onlineUser.put("python",session);
         this.session = session;
-        log.debug("有新连接");
+        log.error("有新连接");
         //todo 万一断开了又重连怎么办？一直发送？【一致性问题】
 //        this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
 //        String python = (String) this.httpSession.getAttribute("python");
 //        onlineUser.put(python,session);
 
-        //调用方法发送文件   链接后修改标识，一上传就发送
-        // 数据库中查询没处理过的文件 发送过去python端
-        LambdaQueryWrapper<Uploadfileinfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Uploadfileinfo::getHandle,0);
-        List<Uploadfileinfo> list = uploadfileinfoService.list(queryWrapper);
-        for (Uploadfileinfo uploadfileinfo : list) {
-            Message message = new Message(uploadfileinfo.getPid(), uploadfileinfo.getObsurl());
-            String str = JSONUtil.toJsonStr(message);
-            session.getBasicRemote().sendText(str);
-        }
 
-        FLAG = true;
+        session.getBasicRemote().sendText("连接成功");
+
+
+
+//        // 调用方法发送文件   链接后修改标识，一上传就发送
+//        // 数据库中查询没处理过的文件0  发送到python端
+//        LambdaQueryWrapper<Uploadfileinfo> queryWrapper = new LambdaQueryWrapper<>();
+//        queryWrapper.eq(Uploadfileinfo::getHandle,0);
+//        List<Uploadfileinfo> list = uploadfileinfoService.list(queryWrapper);
+//        ArrayList<FileMessage> fileMessages = new ArrayList<>();
+//        for (Uploadfileinfo uploadfileinfo : list) {
+//            FileMessage fileMessage = new FileMessage(uploadfileinfo.getPid(), uploadfileinfo.getObsurl());
+//            fileMessages.add(fileMessage);
+//        }
+//        //发送json数据
+//        String str = JSONUtil.toJsonStr(fileMessages);
+//        session.getBasicRemote().sendText(str);
+//        FLAG = true;
 
     }
 
@@ -81,12 +87,13 @@ public class TransmissionServer {
         */
       public void sendMessage(String message) throws IOException {
         //this.session.getBasicRemote().sendText(message);
-          session.getBasicRemote().sendText(message);
-}
+          Session python = onlineUser.get("python");
+          python.getBasicRemote().sendText(message);
+      }
 
     @OnClose
     public void onClose(){
-        log.debug("连接关闭");
+        log.error("连接关闭");
 
         FLAG = false;
     }
@@ -94,8 +101,9 @@ public class TransmissionServer {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         // todo 接收数据 处理数据并且保存到数据库中 需要修改handle属性
-        log.debug("收到消息");
-
+        log.error("收到消息");
+        session.getBasicRemote().sendText("服务端已收到信息");
+        System.out.println(message);
 
     }
     @OnError

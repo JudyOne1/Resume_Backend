@@ -1,31 +1,22 @@
 package com.hc.resume_backend.service.impl;
 
 
-import cn.hutool.core.lang.UUID;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.mapper.UploadfileinfoMapper;
-import com.hc.resume_backend.model.dto.file.Message;
+import com.hc.resume_backend.model.dto.file.FileMessage;
 import com.hc.resume_backend.model.entity.Uploadfileinfo;
 import com.hc.resume_backend.server.TransmissionServer;
 import com.hc.resume_backend.service.ObsService;
-import com.hc.resume_backend.utils.UuidUtils;
 import com.obs.services.ObsClient;
-import com.obs.services.model.ObsObject;
-import com.obs.services.model.PutObjectRequest;
 import com.obs.services.model.PutObjectResult;
-import org.apache.poi.util.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.*;
-import java.util.Arrays;
 
 /**
  * @author Judy
@@ -50,6 +41,7 @@ public class ObsServiceImpl implements ObsService {
     private TransmissionServer transmissionServer;
 
     @Override
+    @Transactional
     public void saveData(String Key,byte[] bytes) throws IOException {
         // 创建ObsClient实例
         ObsClient obsClient = new ObsClient(ak, sk, endPoint);
@@ -58,7 +50,10 @@ public class ObsServiceImpl implements ObsService {
         String objectKey = result.getObjectKey();
         String objectUrl = result.getObjectUrl();
         Uploadfileinfo uploadfileinfo = new Uploadfileinfo();
-        Long pid = UuidUtils.getId();
+
+        String[] split = Key.split("\\.");
+        Long pid = Long.valueOf(split[0]);
+//        Long pid = UuidUtils.getId();
         uploadfileinfo.setPid(pid);
         uploadfileinfo.setObsurl(objectUrl);
         uploadfileinfo.setResumekey(objectKey);
@@ -67,19 +62,17 @@ public class ObsServiceImpl implements ObsService {
 
         //如果已经连接，那么直接发送message
         if (TransmissionServer.FLAG){
-            Message message = new Message(pid, objectUrl);
-            String str = JSONUtil.toJsonStr(message);
+            FileMessage fileMessage = new FileMessage(pid, objectUrl);
+            String str = JSONUtil.toJsonStr(fileMessage);
             transmissionServer.sendMessage(str);
         }
     }
 
     @Override
     public String getData(Long pid) throws IOException {
-        //查key
-        LambdaQueryWrapper<Uploadfileinfo> queryWrapper = new LambdaQueryWrapper<>();
+        //根据pid查url
         QueryWrapper<Uploadfileinfo> wrapper = new QueryWrapper<>();
         wrapper.eq("pid",pid);
-        queryWrapper.eq(Uploadfileinfo::getPid,pid);
         Uploadfileinfo uploadfileinfo = uploadfileinfoMapper.selectOne(wrapper);
         String obsurl = uploadfileinfo.getObsurl();
         return obsurl;

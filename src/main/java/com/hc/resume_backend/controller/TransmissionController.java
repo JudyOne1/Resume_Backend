@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 /**
  * @author Judy
  * @create 2023-06-20-21:34
@@ -20,8 +22,7 @@ public class TransmissionController {
     private TransmissionServer transmissionServer;
 
     @PostMapping("/text")
-    public void doDeepin(){
-
-
+    public void doDeepin() throws IOException {
+        transmissionServer.sendMessage("hello");
     }
 }
