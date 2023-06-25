@@ -2,21 +2,25 @@ package com.hc.resume_backend.service.impl;
 
 
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.mapper.UploadfileinfoMapper;
-import com.hc.resume_backend.model.dto.file.FileMessage;
+import com.hc.resume_backend.model.dto.deepin.FileMessage;
 import com.hc.resume_backend.model.entity.Uploadfileinfo;
 import com.hc.resume_backend.server.TransmissionServer;
 import com.hc.resume_backend.service.ObsService;
 import com.obs.services.ObsClient;
 import com.obs.services.model.PutObjectResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.concurrent.TimeUnit;
+
+import static com.hc.resume_backend.server.TransmissionServer.redisKey;
 
 /**
  * @author Judy
@@ -36,6 +40,9 @@ public class ObsServiceImpl implements ObsService {
 
     @Resource
     private UploadfileinfoMapper uploadfileinfoMapper;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Resource
     private TransmissionServer transmissionServer;
@@ -64,6 +71,7 @@ public class ObsServiceImpl implements ObsService {
         if (TransmissionServer.FLAG){
             FileMessage fileMessage = new FileMessage(pid, objectUrl);
             String str = JSONUtil.toJsonStr(fileMessage);
+            redisTemplate.opsForValue().set(redisKey + pid,0, 5 , TimeUnit.MINUTES);
             transmissionServer.sendMessage(str);
         }
     }

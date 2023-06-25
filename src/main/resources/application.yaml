@@ -1,4 +1,9 @@
 spring:
+  redis:
+    database: 10
+    host: 139.9.208.251
+    port: 6973
+    password: Haichuang6666redis
   application:
     name: springboot-init
   # 默认 dev 环境

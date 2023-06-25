@@ -1,4 +1,4 @@
-package com.hc.resume_backend.model.dto.file;
+package com.hc.resume_backend.model.dto.deepin;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

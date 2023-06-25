@@ -41,6 +41,7 @@ public class UploadController {
         //base64File格式类似于： data:image/gif;base64,R0lGODlhHA
         //data:application/pdf;base64,
         //data:text/plain;base64,
+        //data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,
 
         String base64File = File.getBase64File();
 
@@ -56,6 +57,10 @@ public class UploadController {
             //如果是文本
             extension="txt";
         }
+        if (extension.equals("vnd.openxmlformats-officedocument.wordprocessingml.document")){
+            //如果是docx
+            extension="docx";
+        }
         if (ObjectUtils.isEmpty(multipartFile) || multipartFile.getSize() <= 0) {
             System.out.println("文件为空");
             return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"文件为空");
@@ -64,6 +69,7 @@ public class UploadController {
         Long uuid = UuidUtils.getId();
 //        UUID uuid = UUID.randomUUID();
         obsService.saveData(uuid+"."+extension,multipartFile.getBytes());
+        //todo redis
 
         return ResultUtils.success("success");
     }

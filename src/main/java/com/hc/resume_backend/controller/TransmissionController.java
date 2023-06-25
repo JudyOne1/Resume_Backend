@@ -1,6 +1,7 @@
 package com.hc.resume_backend.controller;
 
 import com.hc.resume_backend.server.TransmissionServer;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class TransmissionController {
     private TransmissionServer transmissionServer;
 
     @PostMapping("/text")
+    @ApiOperation("/测试用的，不用管")
     public void doDeepin() throws IOException {
         transmissionServer.sendMessage("hello");
     }

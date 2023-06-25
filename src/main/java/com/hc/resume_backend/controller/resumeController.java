@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.common.BaseResponse;
 
+import com.hc.resume_backend.common.ErrorCode;
 import com.hc.resume_backend.common.ResultUtils;
 import com.hc.resume_backend.model.entity.*;
 import com.hc.resume_backend.service.*;
@@ -48,7 +49,9 @@ public class resumeController {
     public BaseResponse<HashMap<String, ArrayList<String>>> getStatisticsInfo(){
 
         HashMap<String, ArrayList<String>> baseInfo = baseinfoService.getSELFBaseInfo();
-
+        if(baseInfo == null){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"系统出现未知错误，请稍后再试");
+        }
         HashMap<String, ArrayList<String>> detailInfo = detailinfoService.getSELFDetailInfo();
         HashMap<String, ArrayList<String>> finalMap = new HashMap<>();
         ArrayList<String> age = baseInfo.get("age");
@@ -76,16 +79,22 @@ public class resumeController {
     @GetMapping("/getAllBaseInfo")
     public BaseResponse<ArrayList<Baseinfo>> getAllBaseInfo(){
         ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoService.list(null);
+        if (baseinfos == null){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"系统出现未知错误，请稍后再试");
+        }
         return ResultUtils.success(baseinfos);
     }
 
     @ApiOperation(value = "根据指定pid的获取简历的所有信息")
     @GetMapping("/getDetailInfoByPid")
-    public BaseResponse<AllInfo> getDetailInfo(@RequestBody Long pid){
+    public BaseResponse<AllInfo> getDetailInfo(Long pid){
+
         QueryWrapper<Baseinfo> baseinfoQueryWrapper = new QueryWrapper<Baseinfo>();
         baseinfoQueryWrapper.eq("pid",pid);
         Baseinfo baseinfo = baseinfoService.getOne(baseinfoQueryWrapper);
-
+        if (baseinfo == null){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"请检查参数");
+        }
         LambdaQueryWrapper<Detailinfo> detailinfoLambdaQueryWrapper = new LambdaQueryWrapper<>();
         detailinfoLambdaQueryWrapper.eq(Detailinfo::getPid,pid);
         Detailinfo detailinfo = detailinfoService.getOne(detailinfoLambdaQueryWrapper);

@@ -1,4 +1,4 @@
-package com.hc.resume_backend.model.dto.file;
+package com.hc.resume_backend.model.dto.deepin;
 
 import lombok.Data;
 
@@ -9,6 +9,6 @@ import lombok.Data;
  */
 @Data
 public class ResultMessage {
-    // todo 传输的消息类型是什么？
+    private Long pid;
     private String message;
 }
