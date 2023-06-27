@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 @SpringBootApplication
-@MapperScan("com.hc.resume_backend.mapper")
 @EnableWebSocket
 public class ResumeBackendApplication {
 

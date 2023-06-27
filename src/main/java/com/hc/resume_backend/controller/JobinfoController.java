@@ -2,6 +2,7 @@ package com.hc.resume_backend.controller;
 
 import com.hc.resume_backend.common.BaseResponse;
 import com.hc.resume_backend.common.ResultUtils;
+import com.hc.resume_backend.model.entity.Baseinfo;
 import com.hc.resume_backend.model.entity.Jobinfo;
 import com.hc.resume_backend.service.JobinfoService;
 import io.swagger.annotations.ApiOperation;
@@ -34,14 +35,12 @@ public class JobinfoController {
         return ResultUtils.success(list);
     }
 
-    // todo 获取指定岗位下的简历基本信息
+    @ApiOperation("获取指定岗位下的简历基本信息")
+    @GetMapping("/getBaseInfosByJobID")
+    public BaseResponse<ArrayList<Baseinfo>> getBaseInfosByJobID(Long jobId){
+        return jobinfoService.getBaseInfosByJobID(jobId);
+    }
 
 
-
-    // todo 优化：使用redis缓存
-
-
-
-    // todo 与深度学习对接
 
 }

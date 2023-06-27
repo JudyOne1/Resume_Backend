@@ -3,7 +3,6 @@ package com.hc.resume_backend.server;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hc.resume_backend.model.dto.deepin.FileMessage;
-import com.hc.resume_backend.model.dto.redis.MessageRedisData;
 import com.hc.resume_backend.model.entity.Uploadfileinfo;
 import com.hc.resume_backend.service.UploadfileinfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +14,12 @@ import org.springframework.stereotype.Component;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -122,7 +123,7 @@ public class TransmissionServer  {
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
-        // todo 接收数据 处理数据并且保存到数据库中 需要修改handle属性
+        // todo 接收数据 处理数据并且保存到数据库中 需要修改handle属性 redis不用管等过期
         log.error("收到消息");
         System.out.println(message);
 
@@ -132,3 +133,4 @@ public class TransmissionServer  {
         error.printStackTrace();
     }
 }
+// todo 尝试引入springSecurity，JWT，部署dockerfile

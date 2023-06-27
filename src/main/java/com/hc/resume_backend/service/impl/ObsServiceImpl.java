@@ -10,7 +10,6 @@ import com.hc.resume_backend.server.TransmissionServer;
 import com.hc.resume_backend.service.ObsService;
 import com.obs.services.ObsClient;
 import com.obs.services.model.PutObjectResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

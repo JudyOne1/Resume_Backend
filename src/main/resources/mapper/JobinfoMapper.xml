@@ -20,4 +20,8 @@
         responsibility,requirement,createTime,
         updateTime,isDelete
     </sql>
+    <select id="getPidByJobId" resultType="java.lang.Long">
+        SELECT * FROM `resume2job` WHERE jobId = #{jobId}
+    </select>
+
 </mapper>

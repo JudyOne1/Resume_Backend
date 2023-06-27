@@ -1,7 +1,12 @@
 package com.hc.resume_backend.service;
 
+import com.hc.resume_backend.common.BaseResponse;
+import com.hc.resume_backend.common.ResultUtils;
+import com.hc.resume_backend.model.entity.Baseinfo;
 import com.hc.resume_backend.model.entity.Jobinfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.ArrayList;
 
 /**
 * @author Judy
@@ -10,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface JobinfoService extends IService<Jobinfo> {
 
+    BaseResponse<ArrayList<Baseinfo>> getBaseInfosByJobID(Long jobId);
 }

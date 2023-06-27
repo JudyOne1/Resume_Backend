@@ -1,10 +1,7 @@
 package com.hc.resume_backend.service;
 
-import org.springframework.stereotype.Service;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author Judy

@@ -17,7 +17,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * @author Judy
@@ -69,7 +68,6 @@ public class UploadController {
         Long uuid = UuidUtils.getId();
 //        UUID uuid = UUID.randomUUID();
         obsService.saveData(uuid+"."+extension,multipartFile.getBytes());
-        //todo redis
 
         return ResultUtils.success("success");
     }
