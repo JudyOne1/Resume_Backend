@@ -25,7 +25,7 @@ public class Jobinfo implements Serializable {
     /**
      * 职位id
      */
-    @ApiParam("职位id")
+    @ApiParam("职位id(既jobid)")
     private Long jobid;
 
     /**

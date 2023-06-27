@@ -15,5 +15,7 @@ import java.util.ArrayList;
 */
 public interface JobinfoService extends IService<Jobinfo> {
 
-    BaseResponse<ArrayList<Baseinfo>> getBaseInfosByJobID(Long jobId);
+    ArrayList<Baseinfo> getBaseInfosByJobID(Long jobId);
+
+    ArrayList<Baseinfo> getBaseInfosByJobIDSORT(Long jobId, Integer sortId);
 }

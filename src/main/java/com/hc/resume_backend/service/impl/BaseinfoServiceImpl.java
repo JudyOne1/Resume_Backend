@@ -45,7 +45,7 @@ public class BaseinfoServiceImpl extends ServiceImpl<BaseinfoMapper, Baseinfo>
         map.put("level",helper1);
 
         ArrayList<String> helper2 = new ArrayList<>();
-        baseinfos.stream().forEach((item)->helper2.add(item.getWorkyears()));
+        baseinfos.stream().forEach((item)->helper2.add(item.getWorkyears().toString()));
         map.put("workYears",helper2);
 
         return map;

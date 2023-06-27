@@ -58,7 +58,7 @@ public class Baseinfo implements Serializable {
      * 工作年限
      */
     @ApiParam("工作年限")
-    private String workyears;
+    private Double workyears;
 
     /**
      * 标签集合

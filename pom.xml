@@ -15,6 +15,7 @@
     <description>resume_backend</description>
     <properties>
         <java.version>1.8</java.version>
+        <docker.image.port>8808</docker.image.port>
     </properties>
     <dependencies>
         <dependency>
@@ -115,11 +116,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-starter</artifactId>
-            <version>1.8.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shiro</groupId>-->
+<!--            <artifactId>shiro-spring-boot-starter</artifactId>-->
+<!--            <version>1.8.0</version>-->
+<!--        </dependency>-->
 
 
 
@@ -127,6 +128,30 @@
 
     <build>
         <plugins>
+            <!--docker-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+
+                <configuration>
+                    <!--远程Docker的地址-->
+                    <dockerHost>https://139.9.208.251:2375</dockerHost>
+                    <!--pem -->
+<!--                    <dockerCertPath>C:\ca</dockerCertPath>-->
+                    <!--镜像名称，前缀/项目名-->
+                    <!--${docker.image.prefix}/-->
+                    <imageName>${project.artifactId}-${docker.image.port}</imageName>
+                    <dockerDirectory>src/main/docker/</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -11,7 +11,7 @@
             <result property="age" column="age" jdbcType="INTEGER"/>
             <result property="level" column="level" jdbcType="VARCHAR"/>
             <result property="collage" column="collage" jdbcType="VARCHAR"/>
-            <result property="workyears" column="workYears" jdbcType="VARCHAR"/>
+            <result property="workyears" column="workYears" jdbcType="DOUBLE"/>
             <result property="alltag" column="allTag" jdbcType="VARCHAR"/>
             <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
             <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>

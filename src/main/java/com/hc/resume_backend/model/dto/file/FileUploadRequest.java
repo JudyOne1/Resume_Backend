@@ -1,6 +1,7 @@
 package com.hc.resume_backend.model.dto.file;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
@@ -12,6 +13,6 @@ import lombok.Data;
 @ApiModel("文件上传请求体")
 public class FileUploadRequest {
 
-    @ApiParam("base64格式数据")
+    @ApiModelProperty("base64格式数据")
     String base64File;
 }

@@ -1,6 +1,7 @@
 package com.hc.resume_backend.model.dto.file;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
@@ -11,6 +12,6 @@ import lombok.Data;
 @Data
 @ApiModel("文件下载请求体")
 public class FileDownloadRequest {
-    @ApiParam("简历id")
+    @ApiModelProperty("简历id")
     Long pid;
 }
