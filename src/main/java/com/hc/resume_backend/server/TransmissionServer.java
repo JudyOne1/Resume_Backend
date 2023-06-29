@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hc.resume_backend.model.dto.deepin.FileMessage;
 import com.hc.resume_backend.model.entity.Uploadfileinfo;
-import com.hc.resume_backend.service.UploadfileinfoService;
+import com.hc.resume_backend.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -48,6 +48,31 @@ public class TransmissionServer  {
     public void setUploadfileinfoService(UploadfileinfoService uploadfileinfoService) {
         TransmissionServer.uploadfileinfoService = uploadfileinfoService;
     }
+
+    private static BaseinfoService baseinfoService;
+    @Autowired
+    public void setBaseinfoService(BaseinfoService baseinfoService) {
+        TransmissionServer.baseinfoService = baseinfoService;
+    }
+
+    private static DetailinfoService detailinfoService;
+    @Autowired
+    public void setDetailinfoService(DetailinfoService detailinfoService) {
+        TransmissionServer.detailinfoService = detailinfoService;
+    }
+
+    private static EduinfoService eduinfoService;
+    @Autowired
+    public void setEduinfoService(EduinfoService eduinfoService) {
+        TransmissionServer.eduinfoService = eduinfoService;
+    }
+
+    private static WorkinfoService workinfoService;
+    @Autowired
+    public void setWorkinfoService(WorkinfoService workinfoService) {
+        TransmissionServer.workinfoService = workinfoService;
+    }
+
 
     //所有的endpoint实例都用同一个map集合
     public static final Map<String,Session> onlineUser = new ConcurrentHashMap<>();
@@ -126,6 +151,7 @@ public class TransmissionServer  {
         // todo 接收数据 处理数据并且保存到数据库中 需要修改handle属性 redis不用管等过期
         log.error("收到消息");
         System.out.println(message);
+
 
     }
     @OnError

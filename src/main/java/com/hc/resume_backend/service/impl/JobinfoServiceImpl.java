@@ -36,7 +36,9 @@ public class JobinfoServiceImpl extends ServiceImpl<JobinfoMapper, Jobinfo>
         //根据jobid查询pid，根据pid查询baseinfo
         JobinfoMapper jobinfoMapper = this.getBaseMapper();
         ArrayList<Long> pidByJobId = jobinfoMapper.getPidByJobId(jobId);
-
+        if(pidByJobId.isEmpty()){
+            return new ArrayList<>();
+        }
         QueryWrapper<Baseinfo> queryWrapper = new QueryWrapper<>();
         for (Long pid : pidByJobId) {
             queryWrapper.eq("pid",pid).or();
@@ -50,27 +52,26 @@ public class JobinfoServiceImpl extends ServiceImpl<JobinfoMapper, Jobinfo>
     @Override
     public ArrayList<Baseinfo> getBaseInfosByJobIDSORT(Long jobId, Integer sortId) {
         ArrayList<Baseinfo> infos = this.getBaseInfosByJobID(jobId);
+        if (infos.isEmpty()){
+            return new ArrayList<>();
+        }
         ArrayList<Baseinfo> baseinfos = null;
         switch (sortId) {
             case 1:
                 //根据工龄排序
-
                 baseinfos = (ArrayList<Baseinfo>) infos.stream()
                         .sorted(Comparator.comparingDouble(Baseinfo::getWorkyears))
                         .collect(Collectors.toList());
-
                 break;
             case 2:
                 //根据年龄排序
-
                 baseinfos = (ArrayList<Baseinfo>) infos.stream()
                         .sorted(Comparator.comparingDouble(Baseinfo::getAge))
                         .collect(Collectors.toList());
                 break;
             case 3:
                 //根据学历排序
-
-            baseinfos = (ArrayList<Baseinfo>) infos.stream()
+                baseinfos = (ArrayList<Baseinfo>) infos.stream()
                     .sorted(Comparator.comparing(Baseinfo::getLevel, (o1, o2) -> Integer.compare(getLevelCount(o1),getLevelCount(o2))))
                     .collect(Collectors.toList());
             case 4:

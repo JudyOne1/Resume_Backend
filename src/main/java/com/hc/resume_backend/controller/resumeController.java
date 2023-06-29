@@ -1,21 +1,22 @@
 package com.hc.resume_backend.controller;
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.common.BaseResponse;
-
 import com.hc.resume_backend.common.ErrorCode;
 import com.hc.resume_backend.common.ResultUtils;
 import com.hc.resume_backend.model.entity.*;
 import com.hc.resume_backend.service.*;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Judy
@@ -25,6 +26,7 @@ import java.util.*;
 @RequestMapping("/resume")
 @ResponseBody
 public class resumeController {
+    //todo 可能要修改数据库and实体类和业务逻辑
     @Autowired
     private BaseinfoService baseinfoService;
 
@@ -53,6 +55,9 @@ public class resumeController {
             return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"系统出现未知错误，请稍后再试");
         }
         HashMap<String, ArrayList<String>> detailInfo = detailinfoService.getSELFDetailInfo();
+        if(detailInfo == null){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"系统出现未知错误，请稍后再试");
+        }
         HashMap<String, ArrayList<String>> finalMap = new HashMap<>();
         ArrayList<String> age = baseInfo.get("age");
         finalMap.put("age",age);
@@ -113,6 +118,7 @@ public class resumeController {
         }
         List<Taginfo> taginfoList = taginfoService.list(taginfoQueryWrapper);
 
+        //todo skill
         QueryWrapper<Capacityinfo> capacityinfoQueryWrapper = new QueryWrapper<>();
         String allSkill = detailinfo.getSkill();
         String[] skills = allSkill.split("/");
@@ -131,7 +137,6 @@ public class resumeController {
         LambdaQueryWrapper<Workinfo> workinfoLambdaQueryWrapper = new LambdaQueryWrapper<>();
         workinfoLambdaQueryWrapper.eq(Workinfo::getPid,pid);
         List<Workinfo> workinfoList = workinfoService.list(workinfoLambdaQueryWrapper);
-
 
         AllInfo allInfo = new AllInfo(baseinfo,detailinfo,eduinfoList,workinfoList,taginfoList,capacityinfoList);
 

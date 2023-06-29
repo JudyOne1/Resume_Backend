@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,6 +42,9 @@ public class JobinfoController {
     @GetMapping("/getBaseInfosByJobID")
     public BaseResponse<ArrayList<Baseinfo>> getBaseInfosByJobID(Long jobId){
         ArrayList<Baseinfo> infos = jobinfoService.getBaseInfosByJobID(jobId);
+        if (infos.isEmpty()){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"暂时无匹配简历");
+        }
         return ResultUtils.success(infos);
     }
 
@@ -49,11 +53,22 @@ public class JobinfoController {
     public BaseResponse<ArrayList<Baseinfo>> getBaseInfosByJobIDSORT(@RequestBody jobSortRequest jobSortRequest){
         Long jobId = jobSortRequest.getJobId();
         Integer sortId = jobSortRequest.getSortId();
+        int[] numbers = new int[]{1,2,3,4};
+        boolean SortIdFlag = false;
+        for (int number : numbers) {
+            if (number == sortId){
+                SortIdFlag = true;
+            }
+        }
+        if (!SortIdFlag){
+            return ResultUtils.error(ErrorCode.PARAMS_ERROR,"请求参数(sortId)出现错误");
+        }
         ArrayList<Baseinfo> infos = jobinfoService.getBaseInfosByJobIDSORT(jobId, sortId);
+        if (infos.isEmpty()){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"无数据");
+        }
         return ResultUtils.success(infos);
     }
-
-
 
 
     @ApiOperation("新增岗位信息")
@@ -103,8 +118,4 @@ public class JobinfoController {
         jobinfoService.update(jobinfo,queryWrapper);
         return ResultUtils.success("修改成功");
     }
-
-
-
-
 }

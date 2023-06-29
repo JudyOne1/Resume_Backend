@@ -33,6 +33,9 @@ public class BaseinfoServiceImpl extends ServiceImpl<BaseinfoMapper, Baseinfo>
     public HashMap<String,ArrayList<String>> getSELFBaseInfo() {
 
         ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoMapper.selectList(null);
+        if (baseinfos.isEmpty()){
+            return null;
+        }
 
         HashMap<String, ArrayList<String>> map = new HashMap<>();
         ArrayList<String> helper = new ArrayList<>();
