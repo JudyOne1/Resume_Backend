@@ -1,13 +1,18 @@
 package com.hc.resume_backend.controller;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.common.BaseResponse;
 import com.hc.resume_backend.common.ErrorCode;
 import com.hc.resume_backend.common.ResultUtils;
 import com.hc.resume_backend.model.entity.*;
+import com.hc.resume_backend.model.vo.AllInfoVO;
+import com.hc.resume_backend.model.vo.BaseinfoVO;
 import com.hc.resume_backend.service.*;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,12 +87,19 @@ public class resumeController {
 
     @ApiOperation(value = "获取所有简历基本信息")
     @GetMapping("/getAllBaseInfo")
-    public BaseResponse<ArrayList<Baseinfo>> getAllBaseInfo(){
+    public BaseResponse<ArrayList<BaseinfoVO>> getAllBaseInfo(){
         ArrayList<Baseinfo> baseinfos = (ArrayList<Baseinfo>) baseinfoService.list(null);
         if (baseinfos == null){
             return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"系统出现未知错误，请稍后再试");
         }
-        return ResultUtils.success(baseinfos);
+        ArrayList<BaseinfoVO> result = new ArrayList<>();
+        for (Baseinfo info : baseinfos) {
+            BaseinfoVO baseinfoVO = new BaseinfoVO();
+            BeanUtils.copyProperties(info,baseinfoVO);
+            result.add(baseinfoVO);
+        }
+
+        return ResultUtils.success(result);
     }
 
     @ApiOperation(value = "根据指定pid的获取简历的所有信息")

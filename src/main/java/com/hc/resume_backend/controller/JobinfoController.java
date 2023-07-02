@@ -9,9 +9,12 @@ import com.hc.resume_backend.model.dto.job.jobInfoUpdateRequest;
 import com.hc.resume_backend.model.dto.job.jobSortRequest;
 import com.hc.resume_backend.model.entity.Baseinfo;
 import com.hc.resume_backend.model.entity.Jobinfo;
+import com.hc.resume_backend.model.vo.BaseinfoVO;
+import com.hc.resume_backend.model.vo.JobinfoVO;
 import com.hc.resume_backend.service.JobinfoService;
 import com.hc.resume_backend.utils.UuidUtils;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,24 +36,41 @@ public class JobinfoController {
 
     @ApiOperation(value = "获取所有岗位信息")
     @GetMapping("/getAllJob")
-    public BaseResponse<List<Jobinfo>> getAllJob(){
+    public BaseResponse<List<JobinfoVO>> getAllJob(){
         List<Jobinfo> list = jobinfoService.list();
-        return ResultUtils.success(list);
+        if (list.isEmpty() || list==null){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"无法查询数据，请联系管理员");
+        }
+        ArrayList<JobinfoVO> result = new ArrayList<>();
+        for (Jobinfo jobinfo : list) {
+            JobinfoVO jobinfoVO = new JobinfoVO();
+            BeanUtils.copyProperties(jobinfo,jobinfoVO);
+            result.add(jobinfoVO);
+        }
+
+        return ResultUtils.success(result);
     }
 
     @ApiOperation("获取指定岗位下的简历基本信息")
     @GetMapping("/getBaseInfosByJobID")
-    public BaseResponse<ArrayList<Baseinfo>> getBaseInfosByJobID(Long jobId){
+    public BaseResponse<ArrayList<BaseinfoVO>> getBaseInfosByJobID(Long jobId){
         ArrayList<Baseinfo> infos = jobinfoService.getBaseInfosByJobID(jobId);
         if (infos.isEmpty()){
             return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"暂时无匹配简历");
         }
-        return ResultUtils.success(infos);
+        ArrayList<BaseinfoVO> result = new ArrayList<>();
+        for (Baseinfo info : infos) {
+            BaseinfoVO baseinfoVO = new BaseinfoVO();
+            BeanUtils.copyProperties(info,baseinfoVO);
+            result.add(baseinfoVO);
+        }
+
+        return ResultUtils.success(result);
     }
 
     @ApiOperation("获取指定岗位下的简历基本信息(排序)")
     @PostMapping("/getBaseInfosByJobIDSORT")
-    public BaseResponse<ArrayList<Baseinfo>> getBaseInfosByJobIDSORT(@RequestBody jobSortRequest jobSortRequest){
+    public BaseResponse<ArrayList<BaseinfoVO>> getBaseInfosByJobIDSORT(@RequestBody jobSortRequest jobSortRequest){
         Long jobId = jobSortRequest.getJobId();
         Integer sortId = jobSortRequest.getSortId();
         int[] numbers = new int[]{1,2,3,4};
@@ -65,9 +85,16 @@ public class JobinfoController {
         }
         ArrayList<Baseinfo> infos = jobinfoService.getBaseInfosByJobIDSORT(jobId, sortId);
         if (infos.isEmpty()){
-            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"无数据");
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"暂时无数据");
         }
-        return ResultUtils.success(infos);
+        ArrayList<BaseinfoVO> result = new ArrayList<>();
+        for (Baseinfo info : infos) {
+            BaseinfoVO baseinfoVO = new BaseinfoVO();
+            BeanUtils.copyProperties(info,baseinfoVO);
+            result.add(baseinfoVO);
+        }
+
+        return ResultUtils.success(result);
     }
 
 
