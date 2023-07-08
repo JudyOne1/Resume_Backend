@@ -20,6 +20,9 @@
         responsibility,requirement,createTime,
         updateTime,isDelete
     </sql>
+    <insert id="insertMatchJobId">
+        INSERT INTO `resume2job` VALUES (#{pid},#{jobId})
+    </insert>
     <select id="getPidByJobId" resultType="java.lang.Long">
         SELECT * FROM `resume2job` WHERE jobId = #{jobId}
     </select>

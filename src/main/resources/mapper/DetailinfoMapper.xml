@@ -11,8 +11,8 @@
             <result property="height" column="height" jdbcType="DOUBLE"/>
             <result property="weight" column="weight" jdbcType="DOUBLE"/>
             <result property="birthday" column="birthday" jdbcType="DATE"/>
-            <result property="resident" column="resident" jdbcType="VARCHAR"/>
-            <result property="birthplane" column="birthPlane" jdbcType="VARCHAR"/>
+            <result property="nationality" column="nationality" jdbcType="VARCHAR"/>
+            <result property="policeface" column="policeFace" jdbcType="VARCHAR"/>
             <result property="mail" column="mail" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="expectedposition" column="expectedPosition" jdbcType="VARCHAR"/>
@@ -27,9 +27,12 @@
     <sql id="Base_Column_List">
         id,pid,gender,
         height,weight,birthday,
-        resident,birthPlane,mail,
+        nationality,policeFace,mail,
         phone,expectedPosition,skill,hobby,
         introduce,createTime,updateTime,
         isDelete
     </sql>
+    <insert id="insertBase">
+        INSERT INTO `detailinfo` (pid,gender,nationality,policeFace,mail,phone) VALUES(#{pid},#{gender},#{nationality},#{policeface},#{mail},#{phone});
+    </insert>
 </mapper>

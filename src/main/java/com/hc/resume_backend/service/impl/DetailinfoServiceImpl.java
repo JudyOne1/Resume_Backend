@@ -44,13 +44,13 @@ public class DetailinfoServiceImpl extends ServiceImpl<DetailinfoMapper, Detaili
         map.put("Birthday",helper2);
 
         ArrayList<String> helper3 = new ArrayList<>();
-        detailinfos.stream().forEach((item)->helper3.add(item.getBirthplane()));
-        map.put("Birthplane",helper3);
+        detailinfos.stream().forEach((item)->helper3.add(item.getNationality()));
+        map.put("nationality",helper3);
 
         ArrayList<String> helper4 = new ArrayList<>();
         //有没有空指针问题？
-        detailinfos.stream().forEach((item)->helper4.add(item.getResident()));
-        map.put("Resident",helper4);
+        detailinfos.stream().forEach((item)->helper4.add(item.getPoliceface()));
+        map.put("Police_face",helper4);
         return map;
     }
 }

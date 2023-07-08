@@ -67,6 +67,15 @@ public class Eduinfo implements Serializable {
      */
     private Integer isdelete;
 
+
+    public Eduinfo(Long pid, Date edubegin, Date eduend, String collage, String major) {
+        this.pid = pid;
+        this.edubegin = edubegin;
+        this.eduend = eduend;
+        this.collage = collage;
+        this.major = major;
+    }
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

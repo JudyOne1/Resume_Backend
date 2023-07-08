@@ -24,4 +24,7 @@
         workDesc,createTime,updateTime,
         isDelete
     </sql>
+    <insert id="insertBase">
+        INSERT INTO `workinfo`  (pid, workbegin, workend, workTime, companyinfo, position )  VALUES  ( #{pid}, #{workbegin}, #{workend},#{worktime},#{companyinfo},#{position} );
+    </insert>
 </mapper>

@@ -80,6 +80,23 @@ public class Workinfo implements Serializable {
      */
     private Integer isdelete;
 
+    public Workinfo(Long pid, Date workbegin, Date workend, String companyinfo, String position) {
+        this.pid = pid;
+        this.workbegin = workbegin;
+        this.workend = workend;
+        this.companyinfo = companyinfo;
+        this.position = position;
+    }
+
+    public Workinfo(Long pid, Date workbegin, Date workend, String worktime, String companyinfo, String position) {
+        this.pid = pid;
+        this.workbegin = workbegin;
+        this.workend = workend;
+        this.worktime = worktime;
+        this.companyinfo = companyinfo;
+        this.position = position;
+    }
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

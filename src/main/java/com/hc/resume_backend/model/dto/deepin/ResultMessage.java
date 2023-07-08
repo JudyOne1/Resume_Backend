@@ -1,14 +1,34 @@
 package com.hc.resume_backend.model.dto.deepin;
 
+import com.hc.resume_backend.model.dto.deepin.result.ALL_Edu_exp;
+import com.hc.resume_backend.model.dto.deepin.result.ALL_Work_exp;
+import com.hc.resume_backend.model.dto.deepin.result.IndustryBackground;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-/**
- * @version v1.0
- * @ClassName: ResultMessage
- * @Description: 用来封装服务端给浏览器发送的消息数据
- */
+import lombok.NoArgsConstructor;
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResultMessage {
-//    private Long pid;
-    private String message;
+    private Long PID;
+    private String name;
+    private String gender;
+    private String mail;
+    private String phone_num;
+    //民族
+    private String race;
+    //政治面貌
+    private String police_face;
+    private String age;
+    //level
+    private String max_degree;
+
+    private ALL_Edu_exp edu_exp;
+    private ALL_Work_exp work_exp;
+
+    private String[] edu_label;
+    private IndustryBackground industry_background;
+    private String[] matchJobID;
+
+
 }

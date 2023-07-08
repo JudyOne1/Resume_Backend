@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface WorkinfoMapper extends BaseMapper<Workinfo> {
 
+    public void insertBase(Workinfo workinfo);
 }
 
 

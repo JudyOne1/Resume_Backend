@@ -1,7 +1,10 @@
 package com.hc.resume_backend.mapper;
 
-import com.hc.resume_backend.model.entity.Detailinfo;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hc.resume_backend.model.entity.Detailinfo;
+
+import java.util.ArrayList;
 
 /**
 * @author Judy
@@ -10,7 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.hc.resume_backend.model.entity.Detailinfo
 */
 public interface DetailinfoMapper extends BaseMapper<Detailinfo> {
-
+    public void insertBase(Detailinfo detailinfo);
 }
 
 

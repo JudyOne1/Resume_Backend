@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -16,6 +18,8 @@ import lombok.Data;
  */
 @TableName(value ="baseinfo")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Baseinfo implements Serializable {
 
     /**
@@ -86,6 +90,16 @@ public class Baseinfo implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public Baseinfo(Long pid, String name, Integer age, String level, String collage, Double workyears, String alltag) {
+        this.pid = pid;
+        this.name = name;
+        this.age = age;
+        this.level = level;
+        this.collage = collage;
+        this.workyears = workyears;
+        this.alltag = alltag;
+    }
 
     @Override
     public boolean equals(Object that) {
