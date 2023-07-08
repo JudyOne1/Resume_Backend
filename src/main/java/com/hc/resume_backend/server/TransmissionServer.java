@@ -149,6 +149,7 @@ public class TransmissionServer  {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         // todo 接收数据 处理数据并且保存到数据库中 需要修改handle属性 redis不用管等过期
+        // todo 有三种类型：1是app导入，2是数据集导入，3是岗位信息导入
         log.error("收到消息");
         System.out.println(message);
 

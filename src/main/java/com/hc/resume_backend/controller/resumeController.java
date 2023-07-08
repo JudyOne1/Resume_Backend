@@ -32,6 +32,7 @@ import java.util.List;
 @ResponseBody
 public class resumeController {
     //todo 可能要修改数据库and实体类和业务逻辑
+    //todo 图片格式转pdf格式
     @Autowired
     private BaseinfoService baseinfoService;
 

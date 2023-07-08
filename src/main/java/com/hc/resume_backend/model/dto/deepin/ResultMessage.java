@@ -9,6 +9,6 @@ import lombok.Data;
  */
 @Data
 public class ResultMessage {
-    private Long pid;
+//    private Long pid;
     private String message;
 }
