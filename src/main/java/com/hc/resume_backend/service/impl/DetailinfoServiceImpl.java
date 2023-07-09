@@ -36,12 +36,12 @@ public class DetailinfoServiceImpl extends ServiceImpl<DetailinfoMapper, Detaili
         map.put("gender",helper);
 
         ArrayList<String> helper1 = new ArrayList<>();
-        detailinfos.stream().forEach((item)->helper1.add(item.getHeight().toString()));
-        map.put("height",helper1);
+        detailinfos.stream().forEach((item)->helper1.add(item.getAddress()));
+        map.put("Address",helper1);
 
-        ArrayList<String> helper2 = new ArrayList<>();
-        detailinfos.stream().forEach((item)->helper2.add(item.getBirthday().toString()));
-        map.put("Birthday",helper2);
+//        ArrayList<String> helper2 = new ArrayList<>();
+//        detailinfos.stream().forEach((item)->helper2.add(item.getBirthday().toString()));
+//        map.put("Birthday",helper2);
 
         ArrayList<String> helper3 = new ArrayList<>();
         detailinfos.stream().forEach((item)->helper3.add(item.getNationality()));

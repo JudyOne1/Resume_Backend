@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -15,6 +17,8 @@ import lombok.Data;
  */
 @TableName(value ="workinfo")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Workinfo implements Serializable {
     /**
      * id
@@ -56,7 +60,7 @@ public class Workinfo implements Serializable {
      * 职位信息
      */
     @ApiParam("职位信息")
-    @TableField("'position'")
+//    @TableField("'position'")
     private String position;
 
     /**

@@ -71,6 +71,7 @@ public class JobinfoServiceImpl extends ServiceImpl<JobinfoMapper, Jobinfo>
                 break;
             case 3:
                 //根据学历排序
+                //todo 学历的修改判断
                 baseinfos = (ArrayList<Baseinfo>) infos.stream()
                     .sorted(Comparator.comparing(Baseinfo::getLevel, (o1, o2) -> Integer.compare(getLevelCount(o1),getLevelCount(o2))))
                     .collect(Collectors.toList());
@@ -102,10 +103,9 @@ public class JobinfoServiceImpl extends ServiceImpl<JobinfoMapper, Jobinfo>
                 return ResumeConstant.DOCTORAL_DEGREE;
             case "博士后":
                 return ResumeConstant.POSTDOCTORAL_DEGREE;
-            case "其他":
+            default:
                 return ResumeConstant.OTHER;
         }
-        return null;
     }
 }
 

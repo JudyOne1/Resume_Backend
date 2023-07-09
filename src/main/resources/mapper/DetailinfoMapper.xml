@@ -8,8 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="pid" column="pid" jdbcType="BIGINT"/>
             <result property="gender" column="gender" jdbcType="VARCHAR"/>
-            <result property="height" column="height" jdbcType="DOUBLE"/>
-            <result property="weight" column="weight" jdbcType="DOUBLE"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
             <result property="birthday" column="birthday" jdbcType="DATE"/>
             <result property="nationality" column="nationality" jdbcType="VARCHAR"/>
             <result property="policeface" column="policeFace" jdbcType="VARCHAR"/>
@@ -26,13 +25,13 @@
 
     <sql id="Base_Column_List">
         id,pid,gender,
-        height,weight,birthday,
+        address,birthday,
         nationality,policeFace,mail,
         phone,expectedPosition,skill,hobby,
         introduce,createTime,updateTime,
         isDelete
     </sql>
     <insert id="insertBase">
-        INSERT INTO `detailinfo` (pid,gender,nationality,policeFace,mail,phone) VALUES(#{pid},#{gender},#{nationality},#{policeface},#{mail},#{phone});
+        INSERT INTO `detailinfo` (pid,gender,address,birthday,nationality,policeFace,mail,phone) VALUES(#{pid},#{gender},#{address},#{birthday},#{nationality},#{policeface},#{mail},#{phone});
     </insert>
 </mapper>

@@ -191,6 +191,9 @@ public class UploadController {
     @ResponseBody
     public BaseResponse downloadFile(@RequestBody FileDownloadRequest fileDownloadRequest) throws IOException {
         String url = obsService.getData(fileDownloadRequest.getPid());
+        if (url==null){
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"此文件由数据集导入，无法下载");
+        }
         return ResultUtils.success(url);
     }
 

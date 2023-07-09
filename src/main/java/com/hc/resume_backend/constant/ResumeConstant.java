@@ -9,7 +9,7 @@ package com.hc.resume_backend.constant;
  */
 public interface ResumeConstant {
 /**
- * 小学|初中|高中|中专|大专|本科|硕士|博士|博士后
+ * 无|小学|初中|高中|中专|大专|本科|硕士|博士|博士后
  */
     //博士后
     Integer POSTDOCTORAL_DEGREE = 9;

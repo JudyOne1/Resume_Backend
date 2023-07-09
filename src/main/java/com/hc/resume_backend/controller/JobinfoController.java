@@ -38,7 +38,7 @@ public class JobinfoController {
     public BaseResponse<List<JobinfoVO>> getAllJob(){
         List<Jobinfo> list = jobinfoService.list();
         if (list.isEmpty() || list==null){
-            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"无法查询数据，请联系管理员");
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"暂无岗位数据，请联系管理员添加");
         }
         ArrayList<JobinfoVO> result = new ArrayList<>();
         for (Jobinfo jobinfo : list) {
@@ -55,7 +55,7 @@ public class JobinfoController {
     public BaseResponse<ArrayList<BaseinfoVO>> getBaseInfosByJobID(Long jobId){
         ArrayList<Baseinfo> infos = jobinfoService.getBaseInfosByJobID(jobId);
         if (infos.isEmpty()){
-            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"暂时无匹配简历");
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"此岗位暂时无匹配的简历");
         }
         ArrayList<BaseinfoVO> result = new ArrayList<>();
         for (Baseinfo info : infos) {

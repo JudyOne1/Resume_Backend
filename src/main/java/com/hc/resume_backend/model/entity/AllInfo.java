@@ -18,6 +18,6 @@ public class AllInfo {
     Detailinfo detailinfo;
     List<Eduinfo> eduinfo;
     List<Workinfo> workinfo;
-    List<Taginfo> taginfos;
-    List<Capacityinfo> capacityinfos;
+//    List<Taginfo> taginfos;
+    Capacityinfo capacityinfos;
 }

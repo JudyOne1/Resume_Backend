@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Date;
  * @TableName detailinfo
  */
 @Data
+@AllArgsConstructor
 public class DetailinfoVO implements Serializable {
 
     /**
@@ -29,16 +31,11 @@ public class DetailinfoVO implements Serializable {
     private String gender;
 
     /**
-     * 身高
+     * 居住地址
      */
-    @ApiParam("身高")
-    private Double height;
+    @ApiParam("居住地址")
+    private String address;
 
-    /**
-     * 体重
-     */
-    @ApiParam("体重")
-    private Double weight;
 
     /**
      * 生日
@@ -47,17 +44,18 @@ public class DetailinfoVO implements Serializable {
     private Date birthday;
 
     /**
-     * 居住地
+     * 民族
      */
-    @ApiParam("居住地")
-    private String resident;
+    @ApiParam("民族")
+    @TableField("nationality")
+    private String nationality;
 
     /**
-     * 籍贯
+     * 政治面貌
      */
-    @ApiParam("籍贯")
-    private String birthplane;
-
+    @ApiParam("政治面貌")
+    @TableField("policeFace")
+    private String policeface;
     /**
      * 邮箱
      */
@@ -70,29 +68,6 @@ public class DetailinfoVO implements Serializable {
     @ApiParam("手机号")
     private String phone;
 
-    /**
-     * 期望职位
-     */
-    @ApiParam("期望职位")
-    private String expectedposition;
-
-    /**
-     * 技能/证书
-     */
-    @ApiParam("技能/证书")
-    private String skill;
-
-    /**
-     * 兴趣爱好
-     */
-    @ApiParam("兴趣爱好")
-    private String hobby;
-
-
-    /**
-     * 是否删除
-     */
-    private Integer isdelete;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

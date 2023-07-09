@@ -19,6 +19,5 @@ public class AllInfoVO {
     DetailinfoVO detailinfo;
     List<EduinfoVO> eduinfo;
     List<WorkinfoVO> workinfo;
-    List<TaginfoVO> taginfos;
-    List<CapacityVO> capacityinfos;
+    Capacityinfo capacityinfos;
 }

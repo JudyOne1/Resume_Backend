@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -15,6 +17,8 @@ import lombok.Data;
  */
 @TableName(value ="detailinfo")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Detailinfo implements Serializable {
     /**
      * id
@@ -35,16 +39,10 @@ public class Detailinfo implements Serializable {
     private String gender;
 
     /**
-     * 身高
+     * 居住地址
      */
-    @ApiParam("身高")
-    private Double height;
-
-    /**
-     * 体重
-     */
-    @ApiParam("体重")
-    private Double weight;
+    @ApiParam("居住地址")
+    private String address;
 
     /**
      * 生日
@@ -119,11 +117,22 @@ public class Detailinfo implements Serializable {
      */
     private Integer isdelete;
 
-    public Detailinfo(Long pid, String gender, String nationality, String police_face, String mail, String phone) {
+    public Detailinfo(Long pid, String gender, String address, Date birthday, String nationality, String policeface, String mail, String phone) {
+        this.pid = pid;
+        this.gender = gender;
+        this.address = address;
+        this.birthday = birthday;
+        this.nationality = nationality;
+        this.policeface = policeface;
+        this.mail = mail;
+        this.phone = phone;
+    }
+
+    public Detailinfo(Long pid, String gender, String nationality, String policeface, String mail, String phone) {
         this.pid = pid;
         this.gender = gender;
         this.nationality = nationality;
-        this.policeface = police_face;
+        this.policeface = policeface;
         this.mail = mail;
         this.phone = phone;
     }

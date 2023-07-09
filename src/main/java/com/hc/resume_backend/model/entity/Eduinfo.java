@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -15,6 +17,8 @@ import lombok.Data;
  */
 @TableName(value ="eduinfo")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Eduinfo implements Serializable {
     /**
      * id

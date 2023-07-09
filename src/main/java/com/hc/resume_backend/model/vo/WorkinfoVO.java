@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +17,8 @@ import java.util.Date;
  */
 @TableName(value ="workinfo")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class WorkinfoVO implements Serializable {
 
     /**
@@ -51,14 +55,10 @@ public class WorkinfoVO implements Serializable {
      * 职位信息
      */
     @ApiParam("职位信息")
-    @TableField("'position'")
+//    @TableField("'position'")
     private String position;
 
-    /**
-     * 工作描述
-     */
-    @ApiParam("工作描述")
-    private String workdesc;
+
 
 
     @TableField(exist = false)
