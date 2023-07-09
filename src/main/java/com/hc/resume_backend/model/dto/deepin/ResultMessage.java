@@ -6,6 +6,9 @@ import com.hc.resume_backend.model.dto.deepin.result.IndustryBackground;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +18,8 @@ public class ResultMessage {
     private String gender;
     private String mail;
     private String phone_num;
+    private String address;
+    private String birthday;
     //民族
     private String race;
     //政治面貌

@@ -239,7 +239,7 @@ public class TransmissionServer  {
         //pid的判断 上传的简历拥有pid，数据集的简历没有pid
         if (resultMessage.getPID() != null) {
             pid = resultMessage.getPID();
-            //todo 处理handle字段
+            //处理handle字段
             LambdaQueryWrapper<Uploadfileinfo> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(Uploadfileinfo::getPid, pid);
             Uploadfileinfo one = uploadfileinfoService.getOne(queryWrapper);
@@ -248,10 +248,10 @@ public class TransmissionServer  {
         }
 
         //封装baseinfo
-        String name = resultMessage.getName();
+        String name = fillUNKNOWN(resultMessage.getName());
         int age = Integer.parseInt(resultMessage.getAge());
-        String level = resultMessage.getMax_degree();
-        //todo collage如果有标点符号，需要清除
+        String level = fillUNKNOWN(resultMessage.getMax_degree());
+        //collage如果有标点符号，需要清除
 
         String collage = "UNKNOWN";
         if (resultMessage.getEdu_exp() != null) {
@@ -277,20 +277,24 @@ public class TransmissionServer  {
         }
         Baseinfo baseinfo = new Baseinfo(pid, name, age, level, collage, workyears, AllTag);
         baseinfoService.save(baseinfo);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM");
         //封装detailinfo
 
         String gender = fillUNKNOWN(resultMessage.getGender());
-        //todo 地址and生日的添加
+        //地址and生日的添加
         String mail = fillUNKNOWN(resultMessage.getMail());
         String phone_num = fillUNKNOWN(resultMessage.getPhone_num());
         String police_face = fillUNKNOWN(resultMessage.getPolice_face());
         String nationality = fillUNKNOWN(resultMessage.getRace());
+        String address = fillUNKNOWN(resultMessage.getAddress());
+        Date birthday = format.parse(resultMessage.getBirthday());
 
-        Detailinfo detailinfo = new Detailinfo(pid, gender, nationality, police_face, mail, phone_num);
+        Detailinfo detailinfo = new Detailinfo(pid, gender,address,birthday, nationality, police_face, mail, phone_num);
         //保存到db中
         detailinfoMapper.insertBase(detailinfo);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM");
+
 
         //封装eduinfo
         if (all_work_exp != null){
@@ -365,7 +369,7 @@ public class TransmissionServer  {
 
         //空值填写UNKNOWN √
 
-        //todo 此方法逻辑的bug排查，异常处理 七七八八
+        //此方法逻辑的bug排查，异常处理 √
 
         //对之前写的所有逻辑进行排查 √
 
@@ -446,7 +450,7 @@ public class TransmissionServer  {
 //        String name = resultMessage.getName();
 //        int age = Integer.parseInt(resultMessage.getAge());
 //        String level = resultMessage.getMax_degree();
-//        //todo collage如果有标点符号，需要清除
+//        // collage如果有标点符号，需要清除
 //        String collage = resultMessage.getEdu_exp().getEdu_exp().get(0).getSchool();
 //        String[] tagsArray = resultMessage.getEdu_label();
 //
@@ -466,7 +470,7 @@ public class TransmissionServer  {
 //        Baseinfo baseinfo = new Baseinfo(pid,name,age,level,collage,workyears,AllTag);
 //        baseinfoService.save(baseinfo);
 //        //封装detailinfo
-//        //todo 地址and生日的添加
+//        // 地址and生日的添加
 //        String gender = resultMessage.getGender();
 //
 //        String mail = resultMessage.getMail();
@@ -544,7 +548,7 @@ public class TransmissionServer  {
 //            jobinfoMapper.insertMatchJobId(Long.valueOf(jobId),pid);
 //        }
 //
-//        //todo 此方法逻辑的bug排查，异常处理
+//        // 此方法逻辑的bug排查，异常处理
 //
 //        //对之前写的所有逻辑进行排查 √
 //

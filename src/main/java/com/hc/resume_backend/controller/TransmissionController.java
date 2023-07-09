@@ -145,7 +145,7 @@ public class TransmissionController {
             //pid的判断 上传的简历拥有pid，数据集的简历没有pid
             if (resultMessage.getPID() != null) {
                 pid = resultMessage.getPID();
-                //todo 处理handle字段
+                //处理handle字段
                 LambdaQueryWrapper<Uploadfileinfo> queryWrapper = new LambdaQueryWrapper<>();
                 queryWrapper.eq(Uploadfileinfo::getPid, pid);
                 Uploadfileinfo one = uploadfileinfoService.getOne(queryWrapper);
@@ -157,7 +157,7 @@ public class TransmissionController {
             String name = resultMessage.getName();
             int age = Integer.parseInt(resultMessage.getAge());
             String level = resultMessage.getMax_degree();
-            //todo collage如果有标点符号，需要清除
+            //collage如果有标点符号，需要清除
 
             String collage = "UNKNOWN";
             if (resultMessage.getEdu_exp() != null) {
@@ -186,7 +186,7 @@ public class TransmissionController {
             //封装detailinfo
 
             String gender = fillUNKNOWN(resultMessage.getGender());
-            //todo 地址and生日的添加
+            //地址and生日的添加
             String mail = fillUNKNOWN(resultMessage.getMail());
             String phone_num = fillUNKNOWN(resultMessage.getPhone_num());
             String police_face = fillUNKNOWN(resultMessage.getPolice_face());
@@ -271,7 +271,7 @@ public class TransmissionController {
 
             //空值填写UNKNOWN √
 
-            //todo 此方法逻辑的bug排查，异常处理 七七八八
+            //此方法逻辑的bug排查，异常处理 七七八八
 
             //对之前写的所有逻辑进行排查 √
 
