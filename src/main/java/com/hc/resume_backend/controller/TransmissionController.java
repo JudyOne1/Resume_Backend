@@ -91,10 +91,8 @@ public class TransmissionController {
 
             //使用Java中的JSONObject类来处理JSON数据
             JSONObject jsonObj = new JSONObject(resultMessageJSON);
-
             //处理work_exp添加到all_work_exp中
             ALL_Work_exp all_work_exp = resultMessage.getWork_exp();
-
             ArrayList<Work_exp> workArrays = null;
             if (all_work_exp != null) {
                 Object work_exp = jsonObj.get("work_exp");
@@ -115,7 +113,7 @@ public class TransmissionController {
             //处理edu_exp添加到all_edu_exp中
             ALL_Edu_exp all_edu_exp = resultMessage.getEdu_exp();
             ArrayList<Edu_exp> eduArrays = null;
-            if (all_work_exp != null) {
+            if (all_edu_exp != null) {
                 Object edu_exp = jsonObj.get("edu_exp");
                 JSONObject jsonObj_edu_exp = new JSONObject(edu_exp.toString());
                 eduArrays = all_edu_exp.getEdu_exp();
@@ -123,10 +121,18 @@ public class TransmissionController {
                 int eduNumber = Integer.parseInt(all_edu_exp.getEdu_num());
                 if (eduNumber > 0) {
                     for (int i = 1; i <= eduNumber; i++) {
-                        Object min_edu_exp = jsonObj_edu_exp.get("edu_exp" + i);
-                        Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
-                        log.warn(exp.toString());
-                        eduArrays.add(exp);
+                        if (eduNumber == 1) {
+                            Object min_edu_exp = jsonObj_edu_exp.get("edu_exp");
+                            Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
+                            log.warn(exp.toString());
+                            eduArrays.add(exp);
+                        }else {
+                            Object min_edu_exp = jsonObj_edu_exp.get("edu_exp" + i);
+                            Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
+                            log.warn(exp.toString());
+                            eduArrays.add(exp);
+                        }
+
                     }
                 }
             }
@@ -155,8 +161,14 @@ public class TransmissionController {
 
             //封装baseinfo
             String name = resultMessage.getName();
-            int age = Integer.parseInt(resultMessage.getAge());
-            String level = resultMessage.getMax_degree();
+            int age;
+            //todo age字段
+            if (resultMessage.getAge()==null){
+                age = 0;
+            }else {
+                age = Integer.parseInt(resultMessage.getAge());
+            }
+            String level = fillUNKNOWN(resultMessage.getMax_degree());
             //collage如果有标点符号，需要清除
 
             String collage = "UNKNOWN";
@@ -199,20 +211,30 @@ public class TransmissionController {
             SimpleDateFormat format = new SimpleDateFormat("yyyy.MM");
 
             //封装eduinfo
-            if (all_work_exp != null){
+            if (all_edu_exp != null){
                 for (int i = 0; i < all_edu_exp.getEdu_exp().size(); i++) {
                     //是否有"至今"的问题
                     Edu_exp exp = all_edu_exp.getEdu_exp().get(i);
                     String[] split = exp.getTime().split("-");
-                    Date startTime = format.parse(split[0]);
-//            Date endTime = format.parse(split[1]);
+
+                    Date startTime;
                     Date endTime;
-                    if (!split[1].equals("至今")) {
-                        endTime = format.parse(split[1]);
-                    } else {
-                        //注意 "至今" ==？ 2023年4月
-                        endTime = format.parse("2023.04");
+                    //如果只有年没有月
+                    String[] split0 = split[0].split("\\.");
+                    if(split0.length == 1){
+                        String startStr = split[0] + ".01";
+                        startTime = format.parse(startStr);
+                    }else {
+                        startTime = format.parse(split[0]);
                     }
+                    String[] split1 = split[1].split("\\.");
+                    if(split1.length == 1){
+                        String EndStr = split[0] + ".01";
+                        endTime = format.parse(EndStr);
+                    }else {
+                        endTime = format.parse(split[1]);
+                    }
+
                     String major = exp.getMajor();
                     String school = exp.getSchool();
                     Eduinfo eduinfo = new Eduinfo(pid, startTime, endTime, major, school);
@@ -221,18 +243,30 @@ public class TransmissionController {
                 }
             }
 
+
             if (all_work_exp != null){
                 for (int i = 0; i < all_work_exp.getWork_exp().size(); i++) {
                     Work_exp exp = all_work_exp.getWork_exp().get(i);
                     String[] split = exp.getTime().split("-");
                     Date startTime = format.parse(split[0]);
                     Date endTime;
-                    if (!split[1].equals("至今")) {
-                        endTime = format.parse(split[1]);
-                    } else {
-                        //注意 "至今" ==？ 2023年4月
+//                    StringBuilder stringBuilder = new StringBuilder();
+//                    stringBuilder.append(split[0]);
+//                    String zhijin = stringBuilder.substring(7, 8);
+//                    if (zhijin.equals("至今")){
+                    int length = split[0].length();
+                    if (length>7){
+                        //2020.08至今
                         endTime = format.parse("2023.04");
+                    }else {
+                        if (!split[1].equals("至今")) {
+                            endTime = format.parse(split[1]);
+                        } else {
+                            //注意 "至今" ==？ 2023年4月
+                            endTime = format.parse("2023.04");
+                        }
                     }
+
 
                     //算出有多少年
                     long diffInMillies = Math.abs(endTime.getTime() - startTime.getTime());
