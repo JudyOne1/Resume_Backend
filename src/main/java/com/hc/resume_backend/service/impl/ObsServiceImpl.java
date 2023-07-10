@@ -70,6 +70,8 @@ public class ObsServiceImpl implements ObsService {
         if (TransmissionServer.FLAG){
             FileMessage fileMessage = new FileMessage(pid, objectUrl);
             String str = JSONUtil.toJsonStr(fileMessage);
+            str = "[" +str+"]";
+            System.out.println(str);
             redisTemplate.opsForValue().set(redisKey + pid,0, 5 , TimeUnit.MINUTES);
             transmissionServer.sendMessage(str);
         }

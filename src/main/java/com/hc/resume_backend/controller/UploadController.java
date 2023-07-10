@@ -11,8 +11,6 @@ import com.hc.resume_backend.utils.UuidUtils;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfWriter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,10 +25,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -75,8 +69,8 @@ public class UploadController {
             extension="docx";
         }
         if (ObjectUtils.isEmpty(multipartFile) || multipartFile.getSize() <= 0) {
-            System.out.println("文件为空");
-            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"文件为空");
+//            System.out.println("文件为空,请检查");
+            return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"文件为空,请检查");
         }
 
         Long uuid = UuidUtils.getId();

@@ -119,21 +119,19 @@ public class TransmissionController {
                 eduArrays = all_edu_exp.getEdu_exp();
                 eduArrays = new ArrayList<>();
                 int eduNumber = Integer.parseInt(all_edu_exp.getEdu_num());
-                if (eduNumber > 0) {
+                if (eduNumber > 1) {
                     for (int i = 1; i <= eduNumber; i++) {
-                        if (eduNumber == 1) {
-                            Object min_edu_exp = jsonObj_edu_exp.get("edu_exp");
-                            Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
-                            log.warn(exp.toString());
-                            eduArrays.add(exp);
-                        }else {
-                            Object min_edu_exp = jsonObj_edu_exp.get("edu_exp" + i);
-                            Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
-                            log.warn(exp.toString());
-                            eduArrays.add(exp);
-                        }
+                        Object min_edu_exp = jsonObj_edu_exp.get("edu_exp" + i);
+                        Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
+                        log.warn(exp.toString());
+                        eduArrays.add(exp);
 
                     }
+                } else if (eduNumber == 1) {
+                    Object min_edu_exp = jsonObj_edu_exp.get("edu_exp");
+                    Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
+                    log.warn(exp.toString());
+                    eduArrays.add(exp);
                 }
             }
             if (eduArrays != null) {
@@ -158,11 +156,12 @@ public class TransmissionController {
                 one.setHandle(1);
                 uploadfileinfoService.update(one, queryWrapper);
             }
+            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM");
 
             //封装baseinfo
             String name = resultMessage.getName();
             int age;
-            //todo age字段
+            //age字段
             if (resultMessage.getAge()==null){
                 age = 0;
             }else {
@@ -204,11 +203,25 @@ public class TransmissionController {
             String police_face = fillUNKNOWN(resultMessage.getPolice_face());
             String nationality = fillUNKNOWN(resultMessage.getRace());
 
-            Detailinfo detailinfo = new Detailinfo(pid, gender, nationality, police_face, mail, phone_num);
+            String Address = fillUNKNOWN(resultMessage.getAddress());
+            String Birthday = fillUNKNOWN(resultMessage.getBirthday());
+            Date date;
+            if (!Birthday.equals("UNKNOWN")){
+                date = format.parse(Birthday);
+            }else {
+                if (age != 0){
+                    date = format.parse((2023 - age)+1+".01");
+                }else {
+                    date = format.parse("2022.01");
+                }
+            }
+
+
+            Detailinfo detailinfo = new Detailinfo(pid, gender, Address,date,nationality, police_face, mail, phone_num);
             //保存到db中
             detailinfoMapper.insertBase(detailinfo);
 
-            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM");
+
 
             //封装eduinfo
             if (all_edu_exp != null){

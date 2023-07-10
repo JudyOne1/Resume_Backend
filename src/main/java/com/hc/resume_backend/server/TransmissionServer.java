@@ -25,6 +25,7 @@ import javax.annotation.Resource;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -148,6 +149,7 @@ public class TransmissionServer  {
         }
         //发送消息
         if (!result.isEmpty()){
+            log.error(JSONUtil.toJsonStr(result));
             session.getBasicRemote().sendText(JSONUtil.toJsonStr(result));
         }
         FLAG = true;
@@ -186,21 +188,28 @@ public class TransmissionServer  {
 
             //使用Java中的JSONObject类来处理JSON数据
             JSONObject jsonObj = new JSONObject(resultMessageJSON);
+            System.out.println(jsonObj);
             //处理work_exp添加到all_work_exp中
             ALL_Work_exp all_work_exp = resultMessage.getWork_exp();
             ArrayList<Work_exp> workArrays = null;
             if (all_work_exp != null) {
                 Object work_exp = jsonObj.get("work_exp");
                 JSONObject jsonObj_work_exp = new JSONObject(work_exp.toString());
+                log.error(jsonObj_work_exp.toString());
                 workArrays = all_work_exp.getWork_exp();
                 workArrays = new ArrayList<>();
                 int workNumber = Integer.parseInt(all_work_exp.getWork_num());
-                if (workNumber > 0) {
+                if (workNumber > 1) {
                     for (int i = 1; i <= workNumber; i++) {
                         Object min_work_exp = jsonObj_work_exp.get("work_exp" + i);
                         Work_exp exp = JSONUtil.toBean(min_work_exp.toString(), Work_exp.class);
                         workArrays.add(exp);
+
                     }
+                } else if (workNumber == 1) {
+                    Object min_work_exp = jsonObj_work_exp.get("work_exp");
+                    Work_exp exp = JSONUtil.toBean(min_work_exp.toString(), Work_exp.class);
+                    workArrays.add(exp);
                 }
             }
 
@@ -214,21 +223,20 @@ public class TransmissionServer  {
                 eduArrays = all_edu_exp.getEdu_exp();
                 eduArrays = new ArrayList<>();
                 int eduNumber = Integer.parseInt(all_edu_exp.getEdu_num());
-                if (eduNumber > 0) {
+                if (eduNumber > 1) {
                     for (int i = 1; i <= eduNumber; i++) {
-                        if (eduNumber == 1) {
-                            Object min_edu_exp = jsonObj_edu_exp.get("edu_exp");
-                            Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
-                            log.warn(exp.toString());
-                            eduArrays.add(exp);
-                        }else {
-                            Object min_edu_exp = jsonObj_edu_exp.get("edu_exp" + i);
-                            Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
-                            log.warn(exp.toString());
-                            eduArrays.add(exp);
-                        }
+                        Object min_edu_exp = jsonObj_edu_exp.get("edu_exp" + i);
+                        Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
+                        log.warn(exp.toString());
+                        eduArrays.add(exp);
 
                     }
+                } else if (eduNumber == 1) {
+                    log.error(jsonObj_edu_exp.toString());
+                    Object min_edu_exp = jsonObj_edu_exp.get("edu_exp");
+                    Edu_exp exp = JSONUtil.toBean(min_edu_exp.toString(), Edu_exp.class);
+                    log.warn(exp.toString());
+                    eduArrays.add(exp);
                 }
             }
             if (eduArrays != null) {
@@ -240,7 +248,7 @@ public class TransmissionServer  {
 
             resultMessage.setEdu_exp(all_edu_exp);
             resultMessage.setWork_exp(all_work_exp);
-
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM");
 
             Long pid = UuidUtils.getId();
             //pid的判断 上传的简历拥有pid，数据集的简历没有pid
@@ -257,7 +265,7 @@ public class TransmissionServer  {
             //封装baseinfo
             String name = resultMessage.getName();
             int age;
-            //todo age字段
+            //age字段
             if (resultMessage.getAge()==null){
                 age = 0;
             }else {
@@ -299,11 +307,23 @@ public class TransmissionServer  {
             String police_face = fillUNKNOWN(resultMessage.getPolice_face());
             String nationality = fillUNKNOWN(resultMessage.getRace());
 
-            Detailinfo detailinfo = new Detailinfo(pid, gender, nationality, police_face, mail, phone_num);
+        String Address = fillUNKNOWN(resultMessage.getAddress());
+        String Birthday = fillUNKNOWN(resultMessage.getBirthday());
+        Date date;
+        if (!Birthday.equals("UNKNOWN")){
+            date = format.parse(Birthday);
+        }else {
+            if (age != 0){
+                date = format.parse((2023 - age)+1+".01");
+            }else {
+                date = format.parse("2022.01");
+            }
+        }
+
+
+        Detailinfo detailinfo = new Detailinfo(pid, gender, Address,date,nationality, police_face, mail, phone_num);
             //保存到db中
             detailinfoMapper.insertBase(detailinfo);
-
-            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM");
 
             //封装eduinfo
             if (all_edu_exp != null){
@@ -805,6 +825,7 @@ public class TransmissionServer  {
     public void onError(Session session, Throwable error){
         error.printStackTrace();
     }
+
     public String fillUNKNOWN(String str){
         if (str == null){
             str = "UNKNOWN";
