@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IndustryBackground {
-    private int building_real_estate;
-    private int finance;
-    private int internet;
-    private int education;
-    private int engineer;
-    private int sports;
-    private int art;
-    private int agriculture;
-    private int law;
-    private int medical_pharmaceutical_nursing;
-    private int personnel_administration_management;
+    private int Building_RealEstate;
+    private int Finance;
+    private int Internet;
+    private int Education;
+    private int Engineer;
+    private int Sports;
+    private int Art;
+    private int Agriculture;
+    private int Law;
+    private int Medical_Pharmaceutical_Nursing;
+    private int Personnel_Administration_Management;
 
 }
