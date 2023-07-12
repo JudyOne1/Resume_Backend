@@ -16,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -24,6 +25,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import com.spire.doc.*;
 
 import java.io.*;
 
@@ -44,7 +46,7 @@ public class UploadController {
     @PostMapping("/uploadFile")
     @ResponseBody
     @ApiParam(name = "base64File", value = "base64格式的文件", required = true)
-    public BaseResponse uploadFile(@RequestBody FileUploadRequest File) throws IOException, DocumentException {
+    public BaseResponse uploadFile(@RequestBody FileUploadRequest File) throws Exception {
         //base64File格式类似于： data:image/gif;base64,R0lGODlhHA
         //data:application/pdf;base64,
         //data:text/plain;base64,
@@ -80,21 +82,34 @@ public class UploadController {
             MultipartFile PDFmultipartFile = convertToPDF(multipartFile,extension);
             obsService.saveData(uuid+".pdf",PDFmultipartFile.getBytes());
             return ResultUtils.success("success");
-        }
-        if (extension.equals("txt")){
+        }else if (extension.equals("txt")){
             //转换成word
             log.warn("处理了"+extension+"格式的数据");
             MultipartFile WORDmultipartFile = convertToWord(multipartFile);
-            obsService.saveData(uuid+".docx",WORDmultipartFile.getBytes());
+            //转换成pdf
+            MultipartFile toPDF = word2pdf(WORDmultipartFile);
+            obsService.saveData(uuid+".pdf",toPDF.getBytes());
+            return ResultUtils.success("success");
+        }else if (extension.equals("docx")){
+            //转换成pdf
+            MultipartFile toPDF = word2pdf(multipartFile);
+            obsService.saveData(uuid+".pdf",toPDF.getBytes());
+            return ResultUtils.success("success");
+        }else {
+            //上传到obs对象云存储中
+//        UUID uuid = UUID.randomUUID();
+            obsService.saveData(uuid+"."+extension,multipartFile.getBytes());
             return ResultUtils.success("success");
         }
-
-        //上传到obs对象云存储中
-//        UUID uuid = UUID.randomUUID();
-        obsService.saveData(uuid+"."+extension,multipartFile.getBytes());
-
-        return ResultUtils.success("success");
     }
+
+    private MultipartFile word2pdf(MultipartFile multipartFile) throws IOException {
+        com.spire.doc.Document document = new com.spire.doc.Document(multipartFile.getInputStream());
+        File pdfFile = new File("pdfFile");
+        document.saveToFile(new FileOutputStream(pdfFile),FileFormat.PDF);
+        return convertFileToMultipartFile(pdfFile);
+    }
+
     public static MultipartFile convertToWord(MultipartFile txtFile) throws IOException {
         // 读取文本内容
         String text = new String(txtFile.getBytes());
@@ -177,6 +192,38 @@ public class UploadController {
         return multipartFile;
     }
 
+//    public static MultipartFile convertDocxToPdf(MultipartFile docxFile) throws IOException {
+//        //MultipartFile转File
+//        File file = new File("tempFile"); // 创建File对象
+//        docxFile.transferTo(file); // 将MultipartFile保存到本地临时文件中
+//
+//        // 创建临时文件用于存储转换后的内容
+//        File tempPdfFile = File.createTempFile("converted", ".pdf");
+//
+//        try (FileOutputStream fos = new FileOutputStream(tempPdfFile);
+//             XWPFDocument document = new XWPFDocument(OPCPackage.open(file))) {
+//            // 从docx文件中提取文本内容
+//            XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+//            String text = extractor.getText();
+//            System.out.println(text);
+//
+//            // 使用iText将文本内容转换为pdf
+//            com.itextpdf.text.Document pdfDocument = new com.itextpdf.text.Document();
+//            com.itextpdf.text.pdf.PdfWriter.getInstance(pdfDocument, fos);
+//            pdfDocument.open();
+//            pdfDocument.add(new com.itextpdf.text.Paragraph(text));
+//            pdfDocument.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        //File转MultipartFile
+//        FileInputStream input = new FileInputStream(tempPdfFile);
+//        MultipartFile multipartFile = new MockMultipartFile(
+//                tempPdfFile.getName(), tempPdfFile.getName(), "application/pdf", IOUtils.toByteArray(input));
+//        input.close();
+//        return multipartFile;
+//    }
+
 
 
 
@@ -191,5 +238,21 @@ public class UploadController {
         return ResultUtils.success(url);
     }
 
+
+    private static File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
+        File file = new File(multipartFile.getOriginalFilename());
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(multipartFile.getBytes());
+        fos.close();
+        return file;
+    }
+
+    private static MultipartFile convertFileToMultipartFile(File file) throws IOException {
+        FileInputStream input = new FileInputStream(file);
+        MultipartFile multipartFile = new MockMultipartFile("file",
+                file.getName(), "application/pdf", IOUtils.toByteArray(input));
+        input.close();
+        return multipartFile;
+    }
 
 }
