@@ -26,5 +26,8 @@
     <select id="getPidByJobId" resultType="java.lang.Long">
         SELECT * FROM `resume2job` WHERE jobId = #{jobId}
     </select>
+    <select id="getJobIdByPid" resultType="java.lang.Long">
+        SELECT `jobId` FROM `resume2job` WHERE pid = #{pid}
+    </select>
 
 </mapper>

@@ -160,7 +160,7 @@ public class UploadController {
 
         File pdfFile = File.createTempFile("temp", ".pdf");
 
-        Document document = new Document(PageSize.A4);
+        Document document = new Document(PageSize.A2);
         PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
         document.open();
 

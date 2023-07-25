@@ -50,6 +50,24 @@ public class JobinfoServiceImpl extends ServiceImpl<JobinfoMapper, Jobinfo>
     }
 
     @Override
+    public String getJobNameByJobID(ArrayList<Long> jobId) {
+        if(jobId == null){
+            return null;
+        }
+        QueryWrapper<Jobinfo> queryWrapper = new QueryWrapper<>();
+        for (Long jobid : jobId) {
+            queryWrapper.eq("jobid",jobid).or();
+        }
+        List<Jobinfo> jobinfos = this.list(queryWrapper);
+        StringBuilder stringBuilder = new StringBuilder();
+        jobinfos.stream().forEach((item)->stringBuilder.append(item.getJobname()+"/"));
+        if (stringBuilder.length()>1){
+            stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        }
+        return stringBuilder.toString();
+    }
+
+    @Override
     public ArrayList<Baseinfo> getBaseInfosByJobIDSORT(Long jobId, Integer sortId) {
         ArrayList<Baseinfo> infos = this.getBaseInfosByJobID(jobId);
         if (infos.isEmpty()){

@@ -185,7 +185,7 @@ public class TransmissionServer  {
                 throw new BusinessException(ErrorCode.FILEMISS_ERROR);
             }
             ResultMessage resultMessage = JSONUtil.toBean(resultMessageJSON, ResultMessage.class);
-
+            log.error(String.valueOf(resultMessage));
             //使用Java中的JSONObject类来处理JSON数据
             JSONObject jsonObj = new JSONObject(resultMessageJSON);
             System.out.println(jsonObj);
@@ -395,7 +395,7 @@ public class TransmissionServer  {
                     String job = exp.getJob();
                     String workplace = exp.getWorkplace();
                     //封装workinfo
-                    Workinfo workinfo = new Workinfo(pid, startTime, endTime, worktime, job, workplace);
+                    Workinfo workinfo = new Workinfo(pid, startTime, endTime, worktime,  workplace,job);
                     //保存到db中
                     workinfoMapper.insertBase(workinfo);
 //            workinfoService.save(workinfo);

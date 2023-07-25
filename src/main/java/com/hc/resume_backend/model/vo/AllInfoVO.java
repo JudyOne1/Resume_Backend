@@ -20,4 +20,5 @@ public class AllInfoVO {
     List<EduinfoVO> eduinfo;
     List<WorkinfoVO> workinfo;
     Capacityinfo capacityinfos;
+    String jobNames;
 }

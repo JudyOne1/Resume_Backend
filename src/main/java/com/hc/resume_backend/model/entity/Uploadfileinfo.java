@@ -40,7 +40,7 @@ public class Uploadfileinfo implements Serializable {
     /**
      * 是否处理，默认0，已处理1
      */
-    @TableLogic
+
     private Integer handle;
 
     @TableField(exist = false)

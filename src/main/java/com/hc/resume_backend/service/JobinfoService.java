@@ -17,5 +17,7 @@ public interface JobinfoService extends IService<Jobinfo> {
 
     ArrayList<Baseinfo> getBaseInfosByJobID(Long jobId);
 
+    String getJobNameByJobID(ArrayList<Long> jobId);
+
     ArrayList<Baseinfo> getBaseInfosByJobIDSORT(Long jobId, Integer sortId);
 }

@@ -15,6 +15,8 @@ public interface JobinfoMapper extends BaseMapper<Jobinfo> {
 
     public ArrayList<Long> getPidByJobId(Long jobId);
 
+    public ArrayList<Long> getJobIdByPid(Long pid);
+
     public void insertMatchJobId(Long jobId,Long pid);
 
 }

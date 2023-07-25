@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hc.resume_backend.common.BaseResponse;
 import com.hc.resume_backend.common.ErrorCode;
 import com.hc.resume_backend.common.ResultUtils;
+import com.hc.resume_backend.mapper.JobinfoMapper;
 import com.hc.resume_backend.model.entity.*;
 import com.hc.resume_backend.model.vo.*;
 import com.hc.resume_backend.service.*;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +32,9 @@ import java.util.List;
 @RequestMapping("/resume")
 @ResponseBody
 public class resumeController {
+
+    @Resource
+    private JobinfoMapper jobinfoMapper;
 
     @Autowired
     private BaseinfoService baseinfoService;
@@ -48,6 +53,24 @@ public class resumeController {
 
     @Autowired
     private CapacityinfoService capacityinfoService;
+
+    @Autowired
+    private JobinfoService jobinfoService;
+
+    @ApiOperation(value = "搜索框根据姓名查找简历")
+    @GetMapping("/search")
+    public BaseResponse<ArrayList<BaseinfoVO>> searchResume(String name){
+        QueryWrapper<Baseinfo> baseinfoQueryWrapper = new QueryWrapper<>();
+        baseinfoQueryWrapper.like("name",name);
+        ArrayList<Baseinfo> list = (ArrayList<Baseinfo>) baseinfoService.list(baseinfoQueryWrapper);
+        ArrayList<BaseinfoVO> result = new ArrayList<>();
+        for (Baseinfo baseinfo : list) {
+            BaseinfoVO baseinfoVO = new BaseinfoVO();
+            BeanUtils.copyProperties(baseinfo,baseinfoVO);
+            result.add(baseinfoVO);
+        }
+        return ResultUtils.success(result);
+    }
 
 
     @ApiOperation(value = "获取简历统计信息")
@@ -170,7 +193,16 @@ public class resumeController {
         BaseinfoVO baseinfoVO = new BaseinfoVO(baseinfo.getPid(), baseinfo.getName(), baseinfo.getAge(), baseinfo.getLevel(), baseinfo.getCollage(), baseinfo.getWorkyears(), baseinfo.getAlltag());
         DetailinfoVO detailinfoVO = new DetailinfoVO(detailinfo.getPid(),detailinfo.getGender(), detailinfo.getAddress(), detailinfo.getBirthday(), detailinfo.getNationality(), detailinfo.getPoliceface(), detailinfo.getMail(),detailinfo.getPhone());
 //        AllInfo allInfo = new AllInfo(baseinfo,detailinfo,eduinfoList,workinfoList,capacityinfo);
-        AllInfoVO allInfoVO = new AllInfoVO(baseinfoVO, detailinfoVO,eduinfoVOS,WorkinfoVOS,capacityinfo);
+
+        ArrayList<Long> jobIds = jobinfoMapper.getJobIdByPid(pid);
+        String JobNames;
+        if (jobIds.isEmpty() || jobIds == null){
+            JobNames = "还未匹配到合适的岗位";
+        }else {
+            System.out.println(JSONUtil.toJsonStr(jobIds));
+            JobNames = jobinfoService.getJobNameByJobID(jobIds);
+        }
+        AllInfoVO allInfoVO = new AllInfoVO(baseinfoVO, detailinfoVO,eduinfoVOS,WorkinfoVOS,capacityinfo,JobNames);
 
         return ResultUtils.success(allInfoVO);
     }
