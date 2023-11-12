@@ -1,9 +1,9 @@
 spring:
   redis:
     database: 10
-    host: 139.9.208.251
-    port: 6973
-    password: Haichuang6666redis
+    host: XXX
+    port: XXX
+    password: XXXX
   application:
     name: springboot-init
   # 默认 dev 环境
@@ -19,9 +19,9 @@ spring:
 #    url: jdbc:mysql://localhost:3306/resume_db
 #    username: root
 #    password: root123123
-    url: jdbc:mysql://139.9.208.251:3366/resume_db_test
+    url: jdbc:mysql://XXX/resume_db_test
     username: root
-    password: Haichuang6666mysql
+    password: XXX
 server:
   address: 0.0.0.0
   port: 8808
@@ -39,7 +39,7 @@ mybatis-plus:
 
 app:
   data:
-    bucketName: zhuyifan
-    endPoint: https://obs.cn-south-1.myhuaweicloud.com
-    ak: LCXYX7LWVRLANEQ8NSB6
-    sk: y2FktAfEm23kXfVtK810rWKRap5JEkZqXLVTr5Jl
+    bucketName: XXX
+    endPoint: XXX
+    ak: XXX
+    sk: XXX
