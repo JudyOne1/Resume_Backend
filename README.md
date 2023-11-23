@@ -70,35 +70,51 @@
 
 
 ### 项目结构图
+
+
 ![img_2.png](assets/img_2.png)
 
 
 ### 系统架构图
+
+
 ![img_1.png](assets/img_1.png)
 
 ### 数据库库表设计
+
+
 ![img.png](assets/img.png)
+
+
 ### 页面设计
 
 #### 首页
 
 简历信息统计可视化版图
+
+
 <img src="doc/img_6.png/" alt="img_6.png" style="zoom:67%;" /><img src="doc/img_7.png/" alt="img_7.png" style="zoom:67%;" />
 
 #### 人才库页面
 
 查看所有已经录入的简历基本信息，包括姓名、年龄、最高学历、毕业院校、工作年限这5个要素。  
+
+
 <img src="doc/img_5.png/" alt="img_5.png" style="zoom:67%;" />
 
 #### 详情页
 
 简历详情页面能够清晰地看到这份简历的所有消息，包括工作经历，教育经历和雷达图等信息。
 
-<img src="doc/img_3.png\" alt="img_3.png" style="zoom:67%;" />img src="doc/img_4.png\" alt="img_4.png" style="zoom:67%;" />
+
+
+<img src="doc/img_3.png\" alt="img_3.png" style="zoom:67%;" /><img src="doc/img_4.png\" alt="img_4.png" style="zoom:67%;" />
 
 #### 导入页面
 
 根据不同支持的导入类型，选择需要的类型进行信息导入，本软件支持上传文本、PDF、DOCX格式和图片格式（如JPEG/PNG）的简历文件
+
+
 <img src="doc/img_2.png\" alt="img_2.png" style="zoom:67%;" />
 
 #### 岗位页面
@@ -106,6 +122,8 @@
 查看企业需要招聘的岗位消息
 
 点击具体的岗位，可以查看此岗位详细信息，包括岗位名称，岗位职责，岗位要求，下方有此岗位所匹配的人选信息。在筛选栏中，可以根据不同的需求对简历进行排序，可以选择工龄优先，学历优先，年龄优先这三种排序方式
+
+
 
 <img src="doc/img.png\" alt="img.png" style="zoom:67%;" /><img src="doc/img_1.png\" alt="img_1.png" style="zoom:67%;" />
 
