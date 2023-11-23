@@ -70,18 +70,14 @@
 
 
 ### 项目结构图
-
-![image.png](doc%2Fimage.png)
-
+![img_2.png](assets/img_2.png)
 
 
 ### 系统架构图
-![2afc7dab991e800278098fd96c6c9cf090406637.png](doc%2F2afc7dab991e800278098fd96c6c9cf090406637.png)
-
+![img_1.png](assets/img_1.png)
 
 ### 数据库库表设计
-![53b75f50479807b61596d52079f4e1e58905f77d.png](doc%2F53b75f50479807b61596d52079f4e1e58905f77d.png)
-
+![img.png](assets/img.png)
 ### 页面设计
 
 #### 首页
