@@ -74,9 +74,10 @@ public class UploadController {
 //            System.out.println("文件为空,请检查");
             return ResultUtils.error(ErrorCode.FILEMISS_ERROR,"文件为空,请检查");
         }
-
+//深度学习处理PDF更快，处理word文档需要多花2~3秒
         Long uuid = UuidUtils.getId();
         if (extension.equals("png")||extension.equals("jpeg")){
+            //图片格式无法解析，因为没有接入OCR文字识别
             //转换成pdf
             log.warn("处理了"+extension+"格式的数据");
             MultipartFile PDFmultipartFile = convertToPDF(multipartFile,extension);

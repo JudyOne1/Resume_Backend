@@ -77,7 +77,7 @@
             <scope>runtime</scope>
         </dependency>
 
-<!--        华为对象云存储-->
+<!--华为对象云存储-->
 <!--        <dependency>-->
 <!--            <groupId>com.huaweicloud.sdk</groupId>-->
 <!--            <artifactId>huaweicloud-sdk-obs</artifactId>-->
@@ -98,7 +98,7 @@
             <artifactId>huaweicloud-sdk-vpc</artifactId>
             <version>3.1.43</version>
         </dependency>
-<!--        websocket-->
+<!--websocket相关-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -126,13 +126,13 @@
 <!--            <version>1.8.0</version>-->
 <!--        </dependency>-->
 
-<!--        图像转pdf-->
+        <!--图像转pdf-->
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
             <version>5.5.13</version>
         </dependency>
-        <!--    doc转pdf    -->
+        <!--doc转pdf-->
         <dependency>
             <groupId>e-iceblue</groupId>
             <artifactId>spire.doc</artifactId>

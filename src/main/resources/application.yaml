@@ -1,9 +1,9 @@
 spring:
   redis:
     database: 10
-    host: 139.9.208.251
+    host: 47.115.224.171
     port: 6973
-    password: Haichuang6666redis
+    password: (-)Judy%123456qq:Judy!666qwe
   application:
     name: springboot-init
   # 默认 dev 环境
@@ -19,9 +19,9 @@ spring:
 #    url: jdbc:mysql://localhost:3306/resume_db
 #    username: root
 #    password: root123123
-    url: jdbc:mysql://139.9.208.251:3366/resume_db_test
+    url: jdbc:mysql://localhost/resume_db_test
     username: root
-    password: Haichuang6666mysql
+    password: root123123
 server:
   address: 0.0.0.0
   port: 8808

@@ -76,6 +76,7 @@ public class TransmissionController {
 
     @PostMapping("/message")
     @ApiOperation("/测试消息用的，不用管")
+    //此方法逻辑与TransmissionServer中onMessage()方法的逻辑相同。
     public void message(String resultMessageJSON) throws IOException, ParseException {
         {
             //接收数据 处理数据并且保存到数据库中 需要修改handle属性 redis不用管等过期
@@ -108,7 +109,6 @@ public class TransmissionController {
                     }
                 }
             }
-
 
             //处理edu_exp添加到all_edu_exp中
             ALL_Edu_exp all_edu_exp = resultMessage.getEdu_exp();

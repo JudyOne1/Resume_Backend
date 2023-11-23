@@ -186,6 +186,7 @@ public class TransmissionServer  {
             }
             ResultMessage resultMessage = JSONUtil.toBean(resultMessageJSON, ResultMessage.class);
             log.error(String.valueOf(resultMessage));
+
             //使用Java中的JSONObject类来处理JSON数据
             JSONObject jsonObj = new JSONObject(resultMessageJSON);
             System.out.println(jsonObj);
