@@ -71,59 +71,39 @@
 
 ### 项目结构图
 
-![image](E:\Code\YPcode\resume_backend\assets\image.png)
+![image.png](doc%2Fimage.png)
 
 
 
 ### 系统架构图
-
-
-
-<img src="http://www.kdocs.cn/api/v3/office/copy/a3pvOFBUczdheTZXNGRFZFpqK1BrSFRIQmg0dno4Rk1PaG8rS2tDYy8wTXBuQ2VqbTkrcU0ycmhBOU1sbnhONEdSTHZGcXhEZVhLOVU4OVVMd256Z2s0bjF4N0JReEtQaVByYTVNdmltVjRaVlpOQjhpVFRWN05MZjBHb09NczcxZ3FkUkVtUFZIR1phSkcrVnZSYlBMMjJLb2cwWUNsemNielFhbTJkSFM4TXVlRVNOeDNnM1V3eFlMUmdKQmZ4OTBjelhnTFpraUhGWVZuQmFqQm5xZjNwL00zT3dpUERxa21DS3d1dDM3M1krN1U2U2RaWmsxelZ1cUh2ZWJ0aWpSb1BTZm9jSWcwPQ==/attach/object/2afc7dab991e800278098fd96c6c9cf090406637?\\#pic_center =180x180" alt="img" style="zoom:67%;" />
-
-
-
+![2afc7dab991e800278098fd96c6c9cf090406637.png](doc%2F2afc7dab991e800278098fd96c6c9cf090406637.png)
 
 
 ### 数据库库表设计
-
-![img](http://www.kdocs.cn/api/v3/office/copy/a3pvOFBUczdheTZXNGRFZFpqK1BrSFRIQmg0dno4Rk1PaG8rS2tDYy8wTXBuQ2VqbTkrcU0ycmhBOU1sbnhONEdSTHZGcXhEZVhLOVU4OVVMd256Z2s0bjF4N0JReEtQaVByYTVNdmltVjRaVlpOQjhpVFRWN05MZjBHb09NczcxZ3FkUkVtUFZIR1phSkcrVnZSYlBMMjJLb2cwWUNsemNielFhbTJkSFM4TXVlRVNOeDNnM1V3eFlMUmdKQmZ4OTBjelhnTFpraUhGWVZuQmFqQm5xZjNwL00zT3dpUERxa21DS3d1dDM3M1krN1U2U2RaWmsxelZ1cUh2ZWJ0aWpSb1BTZm9jSWcwPQ==/attach/object/53b75f50479807b61596d52079f4e1e58905f77d?)
-
-
+![53b75f50479807b61596d52079f4e1e58905f77d.png](doc%2F53b75f50479807b61596d52079f4e1e58905f77d.png)
 
 ### 页面设计
 
 #### 首页
 
 简历信息统计可视化版图
-
-<img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/fe439ebaed72697769b7976537785365dde2b61a?、" alt="img" style="zoom:67%;" /><img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/d35eb0aa1b60c61bce43b361e9722e96621b9b86?、" alt="img" style="zoom:67%;" />
-
-
-
-
+<img src="doc/img_6.png/" alt="img_6.png" style="zoom:67%;" /><img src="doc/img_7.png/" alt="img_7.png" style="zoom:67%;" />
 
 #### 人才库页面
 
 查看所有已经录入的简历基本信息，包括姓名、年龄、最高学历、毕业院校、工作年限这5个要素。  
-
-<img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/6427bd9b30a0d71e1b8c94c0107cd363c6ab294b?＼" alt="img" style="zoom:67%;" />
+<img src="doc/img_5.png/" alt="img_5.png" style="zoom:67%;" />
 
 #### 详情页
 
 简历详情页面能够清晰地看到这份简历的所有消息，包括工作经历，教育经历和雷达图等信息。
 
-<img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/21cb1d6332ee15dfcdc8fc92536c8c0449b9197b?＼" alt="img" style="zoom:67%;" /><img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/b8bc60d3e1dd741d0a08d55f73b9664b22a24b47?＼" alt="img" style="zoom:67%;" />
-
-
-
-
+<img src="doc/img_3.png\" alt="img_3.png" style="zoom:67%;" />img src="doc/img_4.png\" alt="img_4.png" style="zoom:67%;" />
 
 #### 导入页面
 
 根据不同支持的导入类型，选择需要的类型进行信息导入，本软件支持上传文本、PDF、DOCX格式和图片格式（如JPEG/PNG）的简历文件
-
-<img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/be7e6d1ac5130b770aecea9489157820f2fb0e29?＼" alt="img" style="zoom:67%;" />
+<img src="doc/img_2.png\" alt="img_2.png" style="zoom:67%;" />
 
 #### 岗位页面
 
@@ -131,11 +111,7 @@
 
 点击具体的岗位，可以查看此岗位详细信息，包括岗位名称，岗位职责，岗位要求，下方有此岗位所匹配的人选信息。在筛选栏中，可以根据不同的需求对简历进行排序，可以选择工龄优先，学历优先，年龄优先这三种排序方式
 
-<img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/95005ca745b860eef059b56c75c4a577e0536fa8?＼" alt="img" style="zoom:67%;" /><img src="http://www.kdocs.cn/api/v3/office/copy/dmwwa09mcXpVUEJoNDZ6QktBbDVUTkVvY1RKODdHZ0NCTkkrQlpRa0hiNTNVRHlSQ0ZXOGFJSkZ4S3hsZmJ6WE9LSnk5SURXMmMxUWxIaXdtS2NFT2VrZE4rOFllamIxMUJ1ZE94NVdoZExBbFdJRW5SNzI5RlhGdVYveE5ObFhhNW85MlhFQUprWGgySjF1Wis3aE5HTEtvd04xRzV4NXFFZlhZTTJzYko0aWtFY2VBcHZ5eDBtQW1IK3g1WlNycnNINkdlSkRvU28wOVE2aUtEemhEMXpNVlgvOXpTYlg3TVM2V296cGcyOUZvdXFrVHRHTkw2KzA4M0xhdE5OSk5zTFNYV0huai80PQ==/attach/object/7540d04f2a2500cc2578b85cda9117f0cc73b60c?＼" alt="img" style="zoom:67%;" />
-
-
-
-
+<img src="doc/img.png\" alt="img.png" style="zoom:67%;" /><img src="doc/img_1.png\" alt="img_1.png" style="zoom:67%;" />
 
 
 
