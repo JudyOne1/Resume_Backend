@@ -1,9 +1,9 @@
 spring:
   redis:
     database: 10
-    host: 47.115.224.171
+    host: xxxx
     port: 6973
-    password: (-)Judy%123456qq:Judy!666qwe
+    password: xxxx
   application:
     name: springboot-init
   # 默认 dev 环境
@@ -39,7 +39,7 @@ mybatis-plus:
 
 app:
   data:
-    bucketName: zhuyifan
-    endPoint: https://obs.cn-south-1.myhuaweicloud.com
-    ak: LCXYX7LWVRLANEQ8NSB6
-    sk: y2FktAfEm23kXfVtK810rWKRap5JEkZqXLVTr5Jl
+    bucketName: xxx
+    endPoint: xxx
+    ak: xxx
+    sk: yxxxx
