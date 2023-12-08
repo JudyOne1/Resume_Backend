@@ -31,7 +31,7 @@
 
 | 库名                         | 作用       |
 | ---------------------------- | -------------------- |
-| Retrofit\***            | 网络       |
+| Retrofit          | 网络       |
 | Navigation         | 路由       |
 | Fragment           | 页面碎片化 |
 | LiveData+ViewModel | 数据       |
